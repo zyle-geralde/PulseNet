@@ -1,0 +1,43 @@
+.imgCont{
+    min-height:500px;
+    margin-left: 10px;
+    min-width:400px;
+    position:relative;
+}
+.firstimg{
+    width: 300px;
+    position: absolute;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+.secondimg{
+    width: 300px;
+    position: absolute;
+    top: 145px;
+    right: 0px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+.thirdimg{
+    width: 300px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+.firstimg:hover {
+    width: 320px;
+}
+.secondimg:hover {
+    width: 320px;
+}
+.thirdimg:hover {
+    width: 320px;
+}
+
+@media (max-width:730px){
+    .imgCont{
+        display: none;
+    }
+}
