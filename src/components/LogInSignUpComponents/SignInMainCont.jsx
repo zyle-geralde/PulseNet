@@ -1,4 +1,10 @@
+import SignInCont from "./SignInCon"
 function SignMainCont(){
+    return(
+        <>
+            <SignInCont/>
+        </>
+    )
 
 }
 
