@@ -12,7 +12,7 @@ function App() {
         <Routes>
             <Route path='/' element = {LogMain()}/>
             <Route path='/LogIn' element = {LogMain()}/>
-            <Route path='/SignUp' element = {SignMainCont()}/>
+            <Route path='/signUp' element = {SignMainCont()}/>
         </Routes>
     )
 }

@@ -17,7 +17,7 @@ function LogInCont() {
             <div className = "logButCont">
                 <button className = "btn btn-danger logBut">Log In</button>
             </div>
-            <p className = "signMessage">Don't have an account? <span><a href="./SignUp" className = "signLink">Sign Up</a></span></p>
+            <p className = "signMessage">Don't have an account? <span><a href="./signUp" className = "signLink">Sign Up</a></span></p>
         </div>
     )
 }
