@@ -11,8 +11,8 @@ function App() {
     return (
         <Routes>
             <Route path='/' element = {LogMain()}/>
-            <Route path='/logIn' element = {LogMain()}/>
-            <Route path='/signIn' element = {SignMainCont()}/>
+            <Route path='/LogIn' element = {LogMain()}/>
+            <Route path='/SignUp' element = {SignMainCont()}/>
         </Routes>
     )
 }
