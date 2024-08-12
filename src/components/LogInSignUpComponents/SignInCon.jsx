@@ -10,6 +10,10 @@ function SignInCont(){
                     <label htmlFor="floatingInput">Username</label>
                 </div>
                 <div className="form-floating mb-3">
+                    <input type="text" className="form-control" id="floatingInput3" placeholder="xxx"></input>
+                    <label htmlFor="floatingInput3">FullName</label>
+                </div>
+                <div className="form-floating mb-3">
                     <input type="password" className="form-control passwordInput" id="floatingInput2" placeholder="xxx"></input>
                     <label htmlFor="floatingInput2">Password</label>
                 </div>
