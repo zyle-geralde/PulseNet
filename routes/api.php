@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/custom-data', [DataController::class, 'show']);
 Route::post('/register',[RegisteControllerr::class,'register']);
+

@@ -43,3 +43,8 @@
 .signLink{
     color: rgb(255, 5, 5);
 }
+.responseMessage{
+    color: rgb(255, 5, 5);
+    font-size: 15px;
+    margin-left: 20px;
+}
