@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LogInController extends Controller
 {
@@ -16,13 +17,13 @@ class LogInController extends Controller
 
     
         $user_exist=User::where('email',$valid_user['email'])->first();
-        if($user_exist){
+        if($user_exist && Hash::check($valid_user['password'],$user_exist->password)){
             return response()->json([
-                'message',true
+                'message'=>'true'
             ]);
         }
         return response()->json([
-            'message',false
+            'message'=>'false'
         ]);
     }
 }

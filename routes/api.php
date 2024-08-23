@@ -9,7 +9,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/custom-data', [DataController::class, 'show']);
 Route::post('/register',[RegisteControllerr::class,'register']);
 Route::post('/loguser',[LogInController::class,'login']);
 
