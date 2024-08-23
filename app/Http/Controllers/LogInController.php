@@ -13,9 +13,16 @@ class LogInController extends Controller
             'email'=>['required'],
             'password'=>['required']
         ]);
-        
-        if($valid_user){
-            $user_exist=User::where('email',$valid_user['email'])->first();
+
+    
+        $user_exist=User::where('email',$valid_user['email'])->first();
+        if($user_exist){
+            return response()->json([
+                'message',true
+            ]);
         }
+        return response()->json([
+            'message',false
+        ]);
     }
 }

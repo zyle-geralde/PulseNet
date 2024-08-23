@@ -1,9 +1,30 @@
+import axios from "axios";
 import "../../styles/logInContstyle.css"
+import { useState } from "react";
 
 function LogInCont() {
+    const [response, setResponse] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+
     const logInFunction = async function (e) {
         e.preventDefault()
-        console.log("Happy");
+        setLoading(true)
+
+        const data = {email,password}
+        try{
+            $response = await axios.post('http://localhost:8000/api/login',data);
+            setResponse($response);
+        }
+        catch(error){
+            setResponse(null)
+        }
+        finally{
+            setLoading(false);
+            setResponse('')
+            setPassword('')
+        }
 
     }
     return (
