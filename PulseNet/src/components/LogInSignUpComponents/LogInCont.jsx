@@ -17,14 +17,13 @@ function LogInCont() {
             return setResponse({ 'message': 'All fields required' })
         }
 
-        const data = { email, password }
+        const data = { email, password ,token_name: 'default_token_name'}
         try {
-            const responseme = await axios.post('http://localhost:8000/api/loguser', data,{ withCredentials: true });
+            const responseme = await axios.post('http://localhost:8000/api/loguser', data);
             setResponse(responseme.data);
         }
         catch (error) {
-            setResponse(error.message)
-            console.log(error.message)
+            setResponse(null)
         }
         finally {
             setLoading(false);

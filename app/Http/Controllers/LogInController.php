@@ -13,15 +13,19 @@ class LogInController extends Controller
 
         $valid_user = $request->validate([
             'email'=>['required'],
-            'password'=>['required']
+            'password'=>['required'],
+            'token_name' => ['required', 'string']
         ]);
 
         try{
             $user_exist=User::where('email',$valid_user['email'])->first();
+            
             if($user_exist && Hash::check($valid_user['password'],$user_exist->password)){
-                $request->session()->regenerate();
+                $tokenName = $valid_user['token_name'];
+                $token = $user_exist->createToken($tokenName)->plainTextToken;
+
                 return response()->json([
-                    'message'=>'true'
+                    'message'=>$token
                 ]);
             }
             return response()->json([
