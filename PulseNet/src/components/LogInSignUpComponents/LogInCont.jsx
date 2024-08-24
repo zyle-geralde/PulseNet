@@ -19,11 +19,12 @@ function LogInCont() {
 
         const data = { email, password }
         try {
-            const responseme = await axios.post('http://localhost:8000/api/loguser', data);
+            const responseme = await axios.post('http://localhost:8000/api/loguser', data,{ withCredentials: true });
             setResponse(responseme.data);
         }
         catch (error) {
-            setResponse(null)
+            setResponse(error.message)
+            console.log(error.message)
         }
         finally {
             setLoading(false);
