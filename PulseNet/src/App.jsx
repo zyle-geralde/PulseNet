@@ -5,6 +5,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import LogMain from './components/LogInSignUpComponents/LogInMainCont'
 import SignMainCont from './components/LogInSignUpComponents/SignInMainCont';
+import showWelcome from './components/mainPageComponents/trypage';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
             <Route path='/' element = {LogMain()}/>
             <Route path='/LogIn' element = {LogMain()}/>
             <Route path='/signUp' element = {SignMainCont()}/>
+            <Route path='/welcome' element = {showWelcome()}/>
         </Routes>
     )
 }
