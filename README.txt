@@ -7,6 +7,8 @@ In the command Line
 -npm run dev # run the front end
 
 
-
 #Used technologies
+Typescript
+React js
+
 
