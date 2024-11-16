@@ -1,4 +1,4 @@
-
+import '../styles/loginstyle.css'
 interface Props{
     textPass: string
     classPass:string
