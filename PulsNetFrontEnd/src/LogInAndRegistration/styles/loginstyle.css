@@ -35,7 +35,7 @@
   width: 100%;
   margin-bottom: 10px;
 }
-.signUpLink{
+.signUpLink,.logInLink{
   color: rgb(220, 86, 126);
   text-decoration: none;
   text-align: center;
@@ -43,7 +43,7 @@
 .inputclass{
   width: 350px;
 }
-.logInButton{
+.logInButton,.signUpButton{
   margin-top: 20px;
   background-color: rgb(220, 86, 126);
   width: 100%;
@@ -58,6 +58,9 @@
   transition: 0.2s;
 }
 .logInButton:hover{
+  background-color: rgb(222, 129, 156);
+}
+.signUpButton:hover{
   background-color: rgb(222, 129, 156);
 }
 .LogInImage{

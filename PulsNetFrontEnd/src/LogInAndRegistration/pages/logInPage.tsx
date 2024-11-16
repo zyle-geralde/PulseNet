@@ -7,9 +7,7 @@ function LogInPage() {
 
     return (
         <>
-            <div style={{
-
-             }} className="LogInImage">
+            <div className="LogInImage">
                 
                 <img src="./images/social-media-5187243_1920.png" style={{
                     width: "100%", borderRadius: "10px",
