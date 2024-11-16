@@ -7,7 +7,7 @@ interface Props{
 function InputForm({typePass,idPass,placeholderPass,forContent}:Props) {
     return (
         <>
-            <div className="form-floating mb-3">
+            <div className="form-floating mb-3 inputclass">
                 <input type={typePass} className="form-control" id={idPass} placeholder={placeholderPass} />
                 <label htmlFor="floatingInput">{forContent}</label>
             </div>

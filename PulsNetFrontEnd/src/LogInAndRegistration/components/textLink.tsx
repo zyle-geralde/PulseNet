@@ -1,13 +1,14 @@
 
 interface Props{
     linkPass: string,
-    textPass:string
+    textPass: string,
+    classPass: string
 }
 
-function TextLink({linkPass,textPass}:Props) {
+function TextLink({linkPass,textPass,classPass}:Props) {
     return (
         <>
-            <a href={linkPass}>
+            <a href={linkPass} className={classPass}>
                 {textPass}
             </a>
         </>

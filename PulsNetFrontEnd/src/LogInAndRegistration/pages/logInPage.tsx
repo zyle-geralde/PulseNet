@@ -10,7 +10,7 @@ function LogInPage() {
             <div className="formDiv">
                 <InputForm typePass="email" idPass="floatingInput" placeholderPass="xxx@xxx.com" forContent="Email address" />
                 <InputForm typePass="password" idPass="floatingPassword" placeholderPass="Password" forContent="Password" />
-                <TextLink linkPass="" textPass="Don't have an account? Sign Up now" />
+                <TextLink linkPass="" textPass="Don't have an account? Sign Up now" classPass="signUpLink"/>
                 <ButtonComp textPass="Log In" classPass="logInButton"/>
             </div>
         </>
