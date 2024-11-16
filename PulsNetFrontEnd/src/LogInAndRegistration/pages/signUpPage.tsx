@@ -6,8 +6,8 @@ import TextLink from "../components/textLink";
 function SignUpPage() {
     return (
         <>
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                <div style={{ fontSize: "50px", fontFamily: "'Pacifico', serif", color: "rgb(238, 27, 91)", textAlign: "center", marginRight:"10px"}}>PULSENET</div>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",marginBottom: "50px",
+                marginTop:"50px"}}>
                 <HeadComp heading="Sign Up" />
                 <div className="formDiv">
 

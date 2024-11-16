@@ -2,20 +2,23 @@ import ButtonComp from "../components/buttonComp";
 import HeadComp from "../components/headComp";
 import InputForm from "../components/Inputform";
 import TextLink from "../components/textLink";
+import '../styles/loginstyle.css'
 
 function LogInPage() {
 
     return (
         <>
             <div className="LogInImage">
-                
                 <img src="./images/social-media-5187243_1920.png" style={{
                     width: "100%", borderRadius: "10px",
                     boxShadow: "10px 10px 10px rgb(225, 225, 225)",
                     marginTop: "30px",
                 }}></img>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+            <div style={{
+                display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "50px",
+                marginTop:"50px"
+            }}>
                 <div style={{ fontSize: "50px", fontFamily: "'Pacifico', serif", color: "rgb(238, 27, 91)", textAlign: "center", marginRight:"10px"}}>PULSENET</div>
                 <HeadComp heading="LOG IN" />
                 <div className="formDiv">
