@@ -8,6 +8,36 @@
 
 */
 .headStyle{
-    font-family: "Pacifico", serif;
-    font-size: 40px;
+  font-family: "Pacifico", serif;
+  font-size: 50px;
+  color: rgb(238, 27, 91);
+  margin-bottom: 20px;
+}
+.formDiv{
+  border-style: solid;
+  padding: 30px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: rgb(220, 86, 126);
+  display: flex;
+  flex-direction: column;
+}
+#floatingPassword{
+  width: 350px;
+}
+#floatingInput{
+  width: 350px;
+}
+
+
+@media (max-width: 470px){
+  #floatingPassword{
+    width: 100%;
+  }
+  #floatingInput{
+    width: 100%;
+  }
+  .formDiv{
+    width: 90%;
+  }
 }

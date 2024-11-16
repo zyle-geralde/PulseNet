@@ -1,12 +1,13 @@
 
 interface Props{
-    textPass:string
+    textPass: string
+    classPass:string
 }
 
-function ButtonComp({textPass}:Props) {
+function ButtonComp({textPass,classPass}:Props) {
     return (
         <>
-            <div>
+            <div className={classPass}>
                 {textPass}
             </div>
         </>
