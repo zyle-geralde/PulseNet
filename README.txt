@@ -5,3 +5,8 @@ In the command Line
 -cd PulsNetFrontEnd # change directory to PulsNetFrontEnd
 -npm install # install all dependencies
 -npm run dev # run the front end
+
+
+
+#Used technologies
+
