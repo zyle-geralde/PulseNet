@@ -29,6 +29,7 @@
 #floatingPassword{
   width: 100%;
   margin-bottom: 10px;
+  border-color: rgb(225, 225, 225);
 }
 #floatingInput{
   width: 100%;
@@ -59,10 +60,27 @@
 .logInButton:hover{
   background-color: rgb(222, 129, 156);
 }
+.LogInImage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  justify-content: center;
+  margin-right: 30px;
+  margin-left: 20px;
+}
 
 
 @media (max-width: 470px){
-  .inputclass{
+  .formDiv{
     width: 90%;
+  }
+  .inputclass{
+    width: 100%;
+  }
+}
+@media(max-width:850px){
+  .LogInImage{
+    display: none;
   }
 }
