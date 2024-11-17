@@ -9,8 +9,8 @@ In the command Line
 
 --Dependencies used in backend--
 #change directory to backend (cd backend)
-
 --django #(pip install django)--
+--django cors headers #(pip install django-cors-headers)
 
 #Used technologies
 Typescript
