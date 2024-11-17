@@ -3,9 +3,21 @@ import HeadComp from "../components/headComp";
 import InputForm from "../components/Inputform";
 import TextLink from "../components/textLink";
 import '../styles/loginstyle.css'
+import loginapi from "../../api/LogInAndRegistration";
+import { useState } from "react";
 
 function LogInPage() {
 
+    var [useremail, setUserEmail] = useState("")
+    var [userpassword, setUserPassword] = useState("")
+
+    function getEmail(value:string) {
+        setUserEmail(value)
+    }
+    function getPassword(value:string) {
+        setUserPassword(value)
+    }
+    
     return (
         <>
             <div className="LogInImage">
@@ -22,8 +34,8 @@ function LogInPage() {
                 <div style={{ fontSize: "50px", fontFamily: "'Pacifico', serif", color: "rgb(238, 27, 91)", textAlign: "center", marginRight:"10px"}}>PULSENET</div>
                 <HeadComp heading="LOG IN" />
                 <div className="formDiv">
-                    <InputForm typePass="email" idPass="floatingInput" placeholderPass="xxx@xxx.com" forContent="Email address" />
-                    <InputForm typePass="password" idPass="floatingPassword" placeholderPass="Password" forContent="Password" />
+                    <InputForm typePass="email" idPass="floatingInput" placeholderPass="xxx@xxx.com" forContent="Email address" clickHandle={getEmail} />
+                    <InputForm typePass="password" idPass="floatingPassword" placeholderPass="Password" forContent="Password" clickHandle={getPassword}/>
                     <TextLink linkPass="/signUp" textPass="Don't have an account? Sign Up now" classPass="signUpLink" />
                     <ButtonComp textPass="Log In" classPass="logInButton" />
                 </div>

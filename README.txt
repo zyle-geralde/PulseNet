@@ -16,5 +16,7 @@ In the command Line
 Typescript
 React js
 Django
+Python
+Bootstrap
 
 
