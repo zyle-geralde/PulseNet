@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie  #set CSRF cookie if not set
+from .models import CustomerUser
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 
@@ -44,11 +46,26 @@ def signUp(request):
             email = data.get("email")
             password = data.get("password")
 
-            print(data)
+            if CustomerUser.objects.filter(email=email).exists():
+                return JsonResponse({"message": "User already exists"})
+            
+            hashed_password = make_password(password)
 
-            return JsonResponse({"message":"Successful"})
+            createdUser = CustomerUser(
+                firstname = firstname,
+                lastname = lastname,
+                age = age,
+                gender = gender,
+                address = address,
+                email = email,
+                password = hashed_password
+            )
+            createdUser.save()
 
-
+            return JsonResponse({"message":"Successfully created User"})
         except Exception:
-            return JsonResponse({"error":"Unexpected error occured"})
+            return JsonResponse({"message":"Unexpected error occured"})
+        
+    else:
+        return JsonResponse({"message":"not a Post request"})
 
