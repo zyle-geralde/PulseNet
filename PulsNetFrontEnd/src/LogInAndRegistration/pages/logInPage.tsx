@@ -17,6 +17,11 @@ function LogInPage() {
     function getPassword(value:string) {
         setUserPassword(value)
     }
+
+    function logInEmailPassword() {
+        loginapi.helloworld()
+        loginapi.LogInApi(useremail,userpassword)
+    }
     
     return (
         <>
@@ -37,7 +42,7 @@ function LogInPage() {
                     <InputForm typePass="email" idPass="floatingInput" placeholderPass="xxx@xxx.com" forContent="Email address" clickHandle={getEmail} />
                     <InputForm typePass="password" idPass="floatingPassword" placeholderPass="Password" forContent="Password" clickHandle={getPassword}/>
                     <TextLink linkPass="/signUp" textPass="Don't have an account? Sign Up now" classPass="signUpLink" />
-                    <ButtonComp textPass="Log In" classPass="logInButton" />
+                    <ButtonComp textPass="Log In" classPass="logInButton" clickFunc={logInEmailPassword}/>
                 </div>
             </div>
         </>

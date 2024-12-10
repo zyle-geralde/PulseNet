@@ -52,6 +52,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173'
+]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']
+
+CORS_ALLOW_CREDENTIALS = True
+
 ROOT_URLCONF = 'PulseNetBackend.urls'
 
 TEMPLATES = [
@@ -126,6 +133,3 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  
-]
