@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie  #set CSRF cookie if not set
 from .models import CustomerUser
 from django.contrib.auth.hashers import make_password,check_password
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 
@@ -81,8 +82,11 @@ def logIn(request):
                 user = CustomerUser.objects.get(email = email)
 
                 if check_password(password, user.password):
+                    refresh = RefreshToken.for_user(user)
                     return JsonResponse({
                         "message": "Login Successful",
+                        "access": str(refresh.access_token),
+                        "refresh": str(refresh),
                     })
                 else:
                     return JsonResponse({"message": "Invalid Credentails"})

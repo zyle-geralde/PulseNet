@@ -1,6 +1,16 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import fetchCsrfToken from './csrftokenapi';
+import { Toast } from 'bootstrap';
+
+const showToast = (message: string) => {
+    const toastElement = document.getElementById('liveToast') as HTMLElement;
+    const toast = new Toast(toastElement);
+    const toastBody = document.querySelector('.toast-body') as HTMLElement;
+
+    toastBody.textContent = message;
+    toast.show();
+};
 
 async function LogInApi(email:string,password:string) {
     const data = {
@@ -36,6 +46,7 @@ async function LogInApi(email:string,password:string) {
         );
 
         console.log("Success:", response.data);
+        showToast(response.data.message)
 
     } catch (error) {
         console.error("Error during login:", error);

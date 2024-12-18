@@ -5,6 +5,7 @@ import TextLink from "../components/textLink";
 import '../styles/loginstyle.css'
 import loginapi from "../../api/LogInAndRegistration";
 import { useState } from "react";
+import { Toast } from "bootstrap";
 
 function LogInPage() {
 
@@ -43,6 +44,17 @@ function LogInPage() {
                     <InputForm typePass="password" idPass="floatingPassword" placeholderPass="Password" forContent="Password" clickHandle={getPassword}/>
                     <TextLink linkPass="/signUp" textPass="Don't have an account? Sign Up now" classPass="signUpLink" />
                     <ButtonComp textPass="Log In" classPass="logInButton" clickFunc={logInEmailPassword}/>
+                </div>
+            </div>
+
+            <div className="position-fixed top-0 end-60 p-3" style={{ "zIndex": "11","maxWidth":"300px"}}>
+                <div id="liveToast" className="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div className="toast-header">
+                        <strong className="me-auto">PulseNet</strong>
+                        <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div className="toast-body">
+                    </div>
                 </div>
             </div>
         </>
