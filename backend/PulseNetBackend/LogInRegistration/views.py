@@ -5,7 +5,7 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie  #set CSRF cookie if not set
 from .models import CustomerUser
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password,check_password
 
 # Create your views here.
 
@@ -68,4 +68,28 @@ def signUp(request):
         
     else:
         return JsonResponse({"message":"not a Post request"})
+    
+
+def logIn(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            email = data.get("email")
+            password = data.get("password")
+
+            if CustomerUser.objects.filter(email = email).exists():
+                user = CustomerUser.objects.get(email = email)
+
+                if check_password(password, user.password):
+                    return JsonResponse({
+                        "message": "Login Successful",
+                    })
+                else:
+                    return JsonResponse({"message": "Invalid Credentails"})
+
+            else:
+                return JsonResponse({"message":"Invalid Credentails"})
+
+        except Exception:
+            return JsonResponse({"message":"Unxpected Error occured",})
 

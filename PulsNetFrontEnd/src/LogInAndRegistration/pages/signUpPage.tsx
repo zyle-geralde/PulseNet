@@ -4,8 +4,11 @@ import InputForm from "../components/Inputform";
 import TextLink from "../components/textLink";
 import { useState } from "react";
 import SignUpApi from "../../api/SignUpApi";
+import { Toast } from 'bootstrap';
+import { useNavigate } from "react-router-dom";
 
 function SignUpPage() {
+    const navigate = useNavigate();
     var [firstname, setFirstname] = useState("")
     var [lastname, setLastname] = useState("")
     var [age, setAge] = useState("")
@@ -35,15 +38,10 @@ function SignUpPage() {
         setPassword(val)
     }
     function singUpcall() {
-        SignUpApi(firstname, lastname, age, gender, address, email, password)
+        SignUpApi(firstname, lastname, age, gender, address, email, password,navigate)
+
     }
 
-    const showToast = (message: string) => {
-        const toast = new window.bootstrap.Toast(document.getElementById('liveToast') as HTMLElement);
-        const toastBody = document.querySelector('.toast-body') as HTMLElement;
-        toastBody.textContent = message;
-        toast.show();
-    };
     return (
         <>
             <div style={{
@@ -65,21 +63,17 @@ function SignUpPage() {
                 </div>
             </div>
 
-            <button type="button" className="btn btn-primary" id="liveToastBtn">Show live toast</button>
-
-            <div className="position-fixed bottom-0 end-0 p-3" style={{ "zIndex": "11"}}>
+            <div className="position-fixed top-0 end-60 p-3" style={{ "zIndex": "11","maxWidth":"300px"}}>
                 <div id="liveToast" className="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
                     <div className="toast-header">
-                        <img src="..." className="rounded me-2" alt="..."/>
-                            <strong className="me-auto">Bootstrap</strong>
-                            <small>11 mins ago</small>
-                            <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        <strong className="me-auto">PulseNet</strong>
+                        <button type="button" className="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                     <div className="toast-body">
-                        Hello, world! This is a toast message.
                     </div>
                 </div>
             </div>
+
         </>
     )
 }

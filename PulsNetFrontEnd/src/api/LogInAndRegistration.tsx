@@ -24,7 +24,7 @@ async function LogInApi(email:string,password:string) {
 
         // Step 3: Make POST request with CSRF token
         const response = await axios.post(
-            "http://127.0.0.1:8000/api/sampledata/",
+            "http://localhost:8000/api/login/",
             data,
             {
                 headers: {
@@ -36,11 +36,10 @@ async function LogInApi(email:string,password:string) {
         );
 
         console.log("Success:", response.data);
-        return response.data;
 
     } catch (error) {
         console.error("Error during login:", error);
-        throw error; // Optionally re-throw for higher-level handling
+        throw error; 
     }
 
 }

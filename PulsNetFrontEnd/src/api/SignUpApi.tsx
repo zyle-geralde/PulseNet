@@ -1,19 +1,28 @@
 import axios from "axios";
+import { Toast } from "bootstrap";
 
+async function fetchCsrfToken() {
+    const response = await fetch(' http://localhost:8000/csrf-token/', {
+        method: 'GET',
+        credentials: 'include',
+    });
+    const data = await response.json();
+    console.log('CSRF Token:', data.csrftoken);
+    return data.csrftoken;
+}
+const showToast = (message: string) => {
+    const toastElement = document.getElementById('liveToast') as HTMLElement;
+    const toast = new Toast(toastElement);
+    const toastBody = document.querySelector('.toast-body') as HTMLElement;
 
-async function SignUpApi(firstname: string, lastname: string, age: string, gender: string, address: string, email: string, password: string) {
-    async function fetchCsrfToken() {
-        const response = await fetch(' http://localhost:8000/csrf-token/', {
-            method: 'GET',
-            credentials: 'include', 
-        });
-        const data = await response.json();
-        console.log('CSRF Token:', data.csrftoken);
-        return data.csrftoken;
-    }
+    toastBody.textContent = message;
+    toast.show();
+};
+
+async function SignUpApi(firstname: string, lastname: string, age: string, gender: string, address: string, email: string, password: string,navigate: (path: string) => void ) {
 
     if (firstname == "" || lastname == "" || age == "" || gender == "" || address == "" || email == "" || password == "") {
-        alert("Invalid Credentials")
+        showToast("Invalid Credentials")
     }
     else {
         const data = {
@@ -23,21 +32,24 @@ async function SignUpApi(firstname: string, lastname: string, age: string, gende
             "gender": gender,
             "email": email,
             "password": password,
-            "address":address
+            "address": address
         }
 
         try {
             const csrfToken = await fetchCsrfToken();
-            const response = await axios.post(" http://localhost:8000/api/signup/", data,  {
+            const response = await axios.post(" http://localhost:8000/api/signup/", data, {
                 headers: {
-                  'X-CSRFToken': csrfToken,
+                    'X-CSRFToken': csrfToken,
                 },
                 withCredentials: true,
-              })
-            console.log(response)
+            })
+            if (response.data.message == "Successfully created User") {
+                navigate("..")
+            }
+            showToast(response.data.message)
         }
         catch (error) {
-            console.log(error)
+            alert(error)
         }
     }
 }
