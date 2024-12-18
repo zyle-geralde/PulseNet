@@ -6,9 +6,29 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie  #set CSRF cookie if not set
 from .models import CustomerUser
 from django.contrib.auth.hashers import make_password,check_password
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 
 # Create your views here.
+
+
+def validate_access_token(request):
+    auth_header = request.headers.get('Authorization')
+    if not auth_header:
+        return {"status": False, "message": "No access token provided"}
+    
+    try:
+        token_type, access_token = auth_header.split()
+        if token_type.lower() != "bearer":
+            return {"status": False, "message": "Invalid token format"}
+    except ValueError:
+        return {"status": False, "message": "Invalid Authorization header"}
+    
+    try:
+        token = AccessToken(access_token)  
+        user_id = token["user_id"]  
+        return {"status": True, "user_id": user_id}  
+    except Exception as e:
+        return {"status": False, "message": "Invalid or expired access token"}
 
 def csrf_token_view(request):
     #send the CSRF token to the frontend
