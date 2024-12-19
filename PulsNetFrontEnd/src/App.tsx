@@ -9,7 +9,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 //Lazy allows you to load components only when needed to reduce the size consumed
 const LogIn = React.lazy(() => import('./LogInAndRegistration/pages/logInPage'));
 const SignUpPage = React.lazy(() => import('./LogInAndRegistration/pages/signUpPage'));
-const Samplepage = React.lazy(()=> import('./sample'))
+const Samplepage = React.lazy(() => import('./sample'))
+const AllPostpage = React.lazy(()=>import('./HomePage/pages/AllPost'))
 
 function App() {
 
@@ -19,7 +20,8 @@ function App() {
         <Routes>
           <Route path='/' element={<LogIn />} />
           <Route path='/signUp' element={<SignUpPage />} />
-          <Route path='/sample' element={<Samplepage/>}/>
+          <Route path='/sample' element={<Samplepage />} />
+          <Route path= '/allpost' element={<AllPostpage />} />
         </Routes>
       </Suspense>
     </>

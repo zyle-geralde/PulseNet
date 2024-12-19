@@ -1,0 +1,14 @@
+.headNav{
+    background-color: rgb(248, 248, 248);
+    width: 100%;
+    height: 60px;
+    box-shadow: 5px 5px 5px rgb(218, 218, 218);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.allPageCont{
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(251, 250, 250);
+}
