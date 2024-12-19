@@ -12,17 +12,15 @@ const showToast = (message: string) => {
     toast.show();
 };
 
-async function LogInApi(email:string,password:string) {
+async function LogInApi(email: string, password: string) {
     const data = {
         'email': email,
         'password':password
     }
 
     try {
-        // Step 1: Fetch CSRF token
         await fetchCsrfToken();
 
-        // Step 2: Retrieve CSRF token from cookies
         const csrfToken = Cookies.get("csrftoken");
         if (!csrfToken) {
             console.error("CSRF token not found. Aborting request.");
@@ -32,7 +30,7 @@ async function LogInApi(email:string,password:string) {
             console.log(csrfToken)
         }
 
-        // Step 3: Make POST request with CSRF token
+        
         const response = await axios.post(
             "http://localhost:8000/api/login/",
             data,

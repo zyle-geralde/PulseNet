@@ -14,21 +14,24 @@ from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 def validate_access_token(request):
     auth_header = request.headers.get('Authorization')
     if not auth_header:
-        return {"status": False, "message": "No access token provided"}
+        return {"status": False, "message": "Invalid"}
     
     try:
         token_type, access_token = auth_header.split()
         if token_type.lower() != "bearer":
-            return {"status": False, "message": "Invalid token format"}
+            return {"status": False, "message": "Invalid"}
     except ValueError:
-        return {"status": False, "message": "Invalid Authorization header"}
+        return {"status": False, "message": "Invalid"}
+    
+    if access_token.strip() == "null" or access_token.strip() == "":
+        return {"status": False, "message": "Invalid"}
     
     try:
-        token = AccessToken(access_token)  
+        token = AccessToken(access_token)
         user_id = token["user_id"]  
         return {"status": True, "user_id": user_id}  
     except Exception as e:
-        return {"status": False, "message": "Invalid or expired access token"}
+        return {"status": False, "message": "Expired access token"}
 
 def csrf_token_view(request):
     #send the CSRF token to the frontend
@@ -38,6 +41,10 @@ def csrf_token_view(request):
 #ensure CSRF cookie is set on the first request
 def sample_data(request):
     if request.method == "POST":
+        token_check = validate_access_token(request)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
         try:
         
             data = json.loads(request.body)
@@ -47,10 +54,10 @@ def sample_data(request):
             print(data)
 
             
-            return JsonResponse({"status":"Successful","data":data})
+            return JsonResponse({"message":"Successful","data":data})
         
         except Exception as e:
-            return JsonResponse({"status":"error","message":str(e)})
+            return JsonResponse({"message":"error","message":str(e)})
         
     return JsonResponse({"status":"error","message":"Invalid Request"})
 
