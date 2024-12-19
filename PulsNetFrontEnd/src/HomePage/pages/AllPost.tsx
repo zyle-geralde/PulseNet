@@ -52,11 +52,60 @@ function AllPost() {
                     </div>
                     <div className="modal-body">
                         <div className="commentsContain">
+                            <div className="IndivComment">
+                                <img src="images/userhold.png" className="commentUserimg"></img>
+                                <div className="usercommentTextCont">
+                                    <div className="userCommentName">
+                                        john does asdnfslndfjsadnasdfasdfsafsdfaasdfasfsafasdfsadfasfsafsadf
+                                    </div>
+                                    <div className="userCommentdiv">
+                                        sakjdfjkasdfkjasdfjkasdfkjsadkjfnsadjkfnaskjdfnjkasdnfkjdasnfkjsafdn
+                                        asjkdfnjksanfdjkanfsjkasnfkjasndfksanjkfnksjanfjasf
+                                        asdkfnsakjdfnskjadfnskjanfkjsandfkjsandkjfnsakdjfnaskjdf
+                                        sakjdfjkasdfkjasdfjkasdfkjsadkjfnsadjkfnaskjdfnjkasdnfkjdasnfkjsafdn
+                                        asjkdfnjksanfdjkanfsjkasnfkjasndfksanjkfnksjanfjasf
+                                        asdkfnsakjdfnskjadfnskjanfkjsandfkjsandkjfnsakdjfnaskjdf
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div className="IndivComment">
+                                <img src="images/userhold.png" className="commentUserimg"></img>
+                                <div className="usercommentTextCont">
+                                    <div className="userCommentName">
+                                        john does asdnfslndfjsadnasdfasdfsafsdfaasdfasfsafasdfsadfasfsafsadf
+                                    </div>
+                                    <div className="userCommentdiv">
+                                        sakjdfjkasdfkjasdfjkasdfkjsadkjfnsadjkfnaskjdfnjkasdnfkjdasnfkjsafdn
+                                        asjkdfnjksanfdjkanfsjkasnfkjasndfksanjkfnksjanfjasf
+                                        asdkfnsakjdfnskjadfnskjanfkjsandfkjsandkjfnsakdjfnaskjdf
+                                        sakjdfjkasdfkjasdfjkasdfkjsadkjfnsadjkfnaskjdfnjkasdnfkjdasnfkjsafdn
+                                        asjkdfnjksanfdjkanfsjkasnfkjasndfksanjkfnksjanfjasf
+                                        asdkfnsakjdfnskjadfnskjanfkjsandfkjsandkjfnsakdjfnaskjdf
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="IndivComment">
+                                <img src="images/userhold.png" className="commentUserimg"></img>
+                                <div className="usercommentTextCont">
+                                    <div className="userCommentName">
+                                        john does asdnfslndfjsadnasdfasdfsafsdfaasdfasfsafasdfsadfasfsafsadf
+                                    </div>
+                                    <div className="userCommentdiv">
+                                        sakjdfjkasdfkjasdfjkasdfkjsadkjfnsadjkfnaskjdfnjkasdnfkjdasnfkjsafdn
+                                        asjkdfnjksanfdjkanfsjkasnfkjasndfksanjkfnksjanfjasf
+                                        asdkfnsakjdfnskjadfnskjanfkjsandfkjsandkjfnsakdjfnaskjdf
+                                        sakjdfjkasdfkjasdfjkasdfkjsadkjfnsadjkfnaskjdfnjkasdnfkjdasnfkjsafdn
+                                        asjkdfnjksanfdjkanfsjkasnfkjasndfksanjkfnksjanfjasf
+                                        asdkfnsakjdfnskjadfnskjanfkjsandfkjsandkjfnsakdjfnaskjdf
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div className="commentsendCont">
                             <input type="text" placeholder="type here " className="commentInp"></input>
-                            <img src = "images/sendPost.png"></img>
+                            <img src = "images/sendPost.png" className="commentSend"></img>
                         </div>
                     </div>
                 </div>

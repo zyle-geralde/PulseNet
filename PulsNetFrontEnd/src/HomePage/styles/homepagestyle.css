@@ -216,10 +216,12 @@
 }
 .commentsContain{
     height: 500px;
+    overflow: auto;
 }
 .commentsendCont{
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 .commentInp{
     width: 100%;
@@ -228,6 +230,40 @@
     border-width: 1px;
     border-radius: 5px;
     border-style: solid;
+}
+.commentSend{
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+}
+.IndivComment{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.commentUserimg{
+    height: 40px;
+    width: 40px;
+    border-radius: 1000px;
+    margin-right: 5px;
+}
+.usercommentTextCont{
+    background-color: rgb(229, 229, 229);
+    width: 82%;
+    border-radius: 5px;
+    padding: 10px;
+}
+.userCommentName{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    font-size: 13px;
+}
+.userCommentdiv{
+    width: 100%;
+    word-wrap: break-word;
 }
 
 @media (max-width:630px){
