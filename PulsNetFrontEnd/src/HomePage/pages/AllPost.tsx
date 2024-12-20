@@ -4,6 +4,8 @@ import '../styles/homepagestyle.css'
 import HeadComp from "../components/headNav"
 import PostComp from "../components/postComp"
 import getAllPostApi from "../../api/getAllpost"
+import { useEffect } from "react"
+
 
 function likeactive(likepost:string) {
     if (likepost == "True") {
@@ -17,14 +19,21 @@ function likeactive(likepost:string) {
         </div>
     }
 }
+
+
 function AllPost() {
     var [allPost,setAllPost] = useState([{
         'fullname': 'default', 'dateCreated': 'default', 'caption': 'default',
-        'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0"
+        'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0",'userPosted':'0',
+        'profimage':'images/userhold.png'
     }])
     
     var userId = localStorage.getItem("userId")
-    {getAllPostApi(userId+"",setAllPost)}
+    useEffect(() => {
+        if (userId) {
+            getAllPostApi(userId, setAllPost);
+        }
+    }, [userId]);
 
     return <div className="allPageCont">
         {/* header component */}
@@ -34,7 +43,7 @@ function AllPost() {
         {allPost.map((post, index) => (
             <div className="allPostCont">
                 <div className="allProfCont">
-                    <img src={post.imageurl} className="userProfhold"></img>
+                    <img src={post.profimage} className="userProfhold"></img>
                     <div className="namePost">
                         <div className="username">
                             {post.fullname}
@@ -48,7 +57,7 @@ function AllPost() {
                     {post.caption}
                 </div>
                 <div className="postImgCont">
-                    <img src="images/social-media-5187243_1920.png" className="ImgHolder"></img>
+                    <img src={post.imageurl} className="ImgHolder"></img>
                 </div>
                 <div className="likeComment">
                     <div className="likeContclass">

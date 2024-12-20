@@ -151,11 +151,12 @@ def allpostview(request):
                             'imageurl': i.imageUrl,
                             'liked': str(inLike), 
                             'countLike': str(likescount),
-                            'userPosted':i.userId.id}
+                            'userPosted':str(i.userId.id),
+                            'profimage':i.userId.imageurl}
                 
                 passarray.append(holdjson)
 
-            return JsonResponse({"message": "Successful","data":passarray})
+            return JsonResponse({"message": "Successful","jsondata":passarray})
         except Exception as e:
             return JsonResponse({"message":"error","message":str(e)})
         

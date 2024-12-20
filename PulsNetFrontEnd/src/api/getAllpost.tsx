@@ -2,9 +2,20 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import fetchCsrfToken from './csrftokenapi';
 import NewAccessToken from './newAccessToken';
+import { Dispatch, SetStateAction } from 'react';
 
+interface Post {
+    fullname: string;
+    dateCreated: string;
+    caption: string;
+    imageurl: string;
+    liked: string;
+    countLike: string;
+    userPosted:string,
+    profimage:string
+}
 
-async function getAllPostApi(id:String) {
+async function getAllPostApi(id:String,setAllPost: Dispatch<SetStateAction<Post[]>>) {
 
     await fetchCsrfToken();
 
@@ -38,6 +49,7 @@ async function getAllPostApi(id:String) {
     )
 
     console.log(response.data)
+    setAllPost(response.data.jsondata)
     if (response.data.message == "Expired access token") {
         NewAccessToken()
         return
