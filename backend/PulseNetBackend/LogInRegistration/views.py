@@ -163,3 +163,9 @@ def allpostview(request):
     return JsonResponse({"status":"error","message":"Invalid Request"})
 
 
+def createPost(request):
+
+    return JsonResponse({"message":"Successful"})
+
+
+

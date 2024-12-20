@@ -10,6 +10,7 @@ async function NewAccessToken() {
         });
         localStorage.setItem("accessToken", response.data.access);
         console.log("Access token refreshed!", localStorage);
+        window.location.reload()
     }  catch (error) {
         const axiosError = error as AxiosError;
 

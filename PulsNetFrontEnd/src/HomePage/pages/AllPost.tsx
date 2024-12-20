@@ -7,14 +7,14 @@ import getAllPostApi from "../../api/getAllpost"
 import { useEffect } from "react"
 
 
-function likeactive(likepost:string) {
+function likeactive(likepost: string) {
     if (likepost == "True") {
-        return<div className="likeimgcont">
+        return <div className="likeimgcont">
             <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
         </div>
     }
     else {
-        return<div className="likeimgconttwo">
+        return <div className="likeimgconttwo">
             <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
         </div>
     }
@@ -22,12 +22,12 @@ function likeactive(likepost:string) {
 
 
 function AllPost() {
-    var [allPost,setAllPost] = useState([{
+    var [allPost, setAllPost] = useState([{
         'fullname': 'default', 'dateCreated': 'default', 'caption': 'default',
-        'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0",'userPosted':'0',
-        'profimage':'images/userhold.png'
+        'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0", 'userPosted': '0',
+        'profimage': 'images/userhold.png'
     }])
-    
+
     var userId = localStorage.getItem("userId")
     useEffect(() => {
         if (userId) {
