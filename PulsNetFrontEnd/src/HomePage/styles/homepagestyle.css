@@ -214,6 +214,13 @@
     border-radius: 10px;
     padding: 5px;
 }
+.likeimgconttwo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+    padding: 5px;
+}
 .commentsContain{
     height: 500px;
     overflow: auto;

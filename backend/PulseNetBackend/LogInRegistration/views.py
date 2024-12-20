@@ -123,4 +123,5 @@ def logIn(request):
 
         except Exception:
             return JsonResponse({"message":"Unxpected Error occured",})
+        
 

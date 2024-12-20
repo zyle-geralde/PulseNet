@@ -4,108 +4,66 @@ import '../styles/homepagestyle.css'
 import HeadComp from "../components/headNav"
 import PostComp from "../components/postComp"
 
-
+function likeactive(likepost:string) {
+    if (likepost == "True") {
+        return<div className="likeimgcont">
+            <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
+        </div>
+    }
+    else {
+        return<div className="likeimgconttwo">
+            <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
+        </div>
+    }
+}
 function AllPost() {
+    var [allPost,setAllPost] = useState([{
+        'fullname': 'helloworld', 'dateCreated': 'July 6, 2003', 'caption': 'cagdsafnkjsandfkjasnfdjksnfkjasnfjkndkjansdjfnsadf',
+        'imageurl': 'images/userhold.png', 'liked': 'True', 'countLike': "34"
+    }, {
+        'fullname': 'helloworld', 'dateCreated': 'July 6, 2003', 'caption': 'cagdsafnkjsandfkjasnfdjksnfkjasnfjkndkjansdjfnsadf',
+        'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "25"
+    }, {
+        'fullname': 'helloworld', 'dateCreated': 'July 6, 2003', 'caption': 'cagdsafnkjsandfkjasnfdjksnfkjasnfjkndkjansdjfnsadf',
+        'imageurl': 'images/userhold.png', 'liked': 'True', 'countLike': "1"
+    }])
+
     return <div className="allPageCont">
         {/* header component */}
         <HeadComp />
         <PostComp />
 
-        <div className="allPostCont">
-            <div className="allProfCont">
-                <img src="images/userhold.png" className="userProfhold"></img>
-                <div className="namePost">
-                    <div className="username">
-                        thomas doe eddison saldnfjk
-                    </div>
-                    <div className="postdate">
-                        July 10, 2023 jasdnfkjsnafkjnsdakj
+        {allPost.map((post, index) => (
+            <div className="allPostCont">
+                <div className="allProfCont">
+                    <img src={post.imageurl} className="userProfhold"></img>
+                    <div className="namePost">
+                        <div className="username">
+                            {post.fullname}
+                        </div>
+                        <div className="postdate">
+                            {post.dateCreated}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="postContext">
-                kjsadnfkjsanfkjsndfjknsadkjfnsakjfnsakjnfjaskdnfkjnasfdkjnsakdjfnaskjdfnksajndfkjsandfkjnsafkjansdjkfnasdkjfn
-            </div>
-            <div className="postImgCont">
-                <img src="images/social-media-5187243_1920.png" className="ImgHolder"></img>
-            </div>
-            <div className="likeComment">
-                <div className="likeContclass">
-                    <div className="likeimgcont">
-                        <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
-                    </div>
-                    <div className="countLike">2</div>
+                <div className="postContext">
+                    {post.caption}
                 </div>
-                <div className="commentContclass">
-                    <img src="images/commentIcon.png" className="commentcls"></img>
-                    <div className="commentlabel" data-bs-toggle="modal" data-bs-target="#exampleModal">Comment</div>
+                <div className="postImgCont">
+                    <img src="images/social-media-5187243_1920.png" className="ImgHolder"></img>
                 </div>
-            </div>
-        </div>
-
-        <div className="allPostCont">
-            <div className="allProfCont">
-                <img src="images/userhold.png" className="userProfhold"></img>
-                <div className="namePost">
-                    <div className="username">
-                        thomas doe eddison saldnfjk
+                <div className="likeComment">
+                    <div className="likeContclass">
+                        {likeactive(post.liked)}
+                        <div className="countLike">{post.countLike}</div>
                     </div>
-                    <div className="postdate">
-                        July 10, 2023 jasdnfkjsnafkjnsdakj
+                    <div className="commentContclass">
+                        <img src="images/commentIcon.png" className="commentcls"></img>
+                        <div className="commentlabel" data-bs-toggle="modal" data-bs-target="#exampleModal">Comment</div>
                     </div>
                 </div>
             </div>
-            <div className="postContext">
-                kjsadnfkjsanfkjsndfjknsadkjfnsakjfnsakjnfjaskdnfkjnasfdkjnsakdjfnaskjdfnksajndfkjsandfkjnsafkjansdjkfnasdkjfn
-            </div>
-            <div className="postImgCont">
-                <img src="images/social-media-5187243_1920.png" className="ImgHolder"></img>
-            </div>
-            <div className="likeComment">
-                <div className="likeContclass">
-                    <div className="likeimgcont">
-                        <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
-                    </div>
-                    <div className="countLike">2</div>
-                </div>
-                <div className="commentContclass">
-                    <img src="images/commentIcon.png" className="commentcls"></img>
-                    <div className="commentlabel" data-bs-toggle="modal" data-bs-target="#exampleModal">Comment</div>
-                </div>
-            </div>
-        </div>
-
-        <div className="allPostCont">
-            <div className="allProfCont">
-                <img src="images/userhold.png" className="userProfhold"></img>
-                <div className="namePost">
-                    <div className="username">
-                        thomas doe eddison saldnfjk
-                    </div>
-                    <div className="postdate">
-                        July 10, 2023 jasdnfkjsnafkjnsdakj
-                    </div>
-                </div>
-            </div>
-            <div className="postContext">
-                kjsadnfkjsanfkjsndfjknsadkjfnsakjfnsakjnfjaskdnfkjnasfdkjnsakdjfnaskjdfnksajndfkjsandfkjnsafkjansdjkfnasdkjfn
-            </div>
-            <div className="postImgCont">
-                <img src="images/social-media-5187243_1920.png" className="ImgHolder"></img>
-            </div>
-            <div className="likeComment">
-                <div className="likeContclass">
-                    <div className="likeimgcont">
-                        <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
-                    </div>
-                    <div className="countLike">2</div>
-                </div>
-                <div className="commentContclass">
-                    <img src="images/commentIcon.png" className="commentcls"></img>
-                    <div className="commentlabel" data-bs-toggle="modal" data-bs-target="#exampleModal">Comment</div>
-                </div>
-            </div>
-        </div>
+        ))}
 
         <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
