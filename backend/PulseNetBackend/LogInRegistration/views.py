@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie  #set CSRF cookie if not set
-from .models import CustomerUser
+from .models import CustomerUser,Post
 from django.contrib.auth.hashers import make_password,check_password
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 
@@ -114,6 +114,7 @@ def logIn(request):
                         "message": "Login Successful",
                         "access": str(refresh.access_token),
                         "refresh": str(refresh),
+                        "userId": user.id
                     })
                 else:
                     return JsonResponse({"message": "Invalid Credentails"})
@@ -124,4 +125,40 @@ def logIn(request):
         except Exception:
             return JsonResponse({"message":"Unxpected Error occured",})
         
+def allpostview(request):
+    if request.method == "POST":
+        try:
+            token_check = validate_access_token(request)
+
+            if not token_check["status"]:
+                return JsonResponse({"message": token_check["message"]})
+            
+
+            data = json.loads(request.body)
+            userId = data.get('userId')
+
+            userRef = CustomerUser.objects.get(id = int(userId))
+            allpost = Post.objects.all()
+
+            passarray = []
+            for i in allpost:
+                inLike = i.likes.filter(id=userRef.id).exists()
+                likescount = i.likes.count()
+
+                holdjson = {'fullname': i.userId.firstname + " " +i.userId.lastname, 
+                            'dateCreated':  i.dateUpdated, 
+                            'caption': i.caption,
+                            'imageurl': i.imageUrl,
+                            'liked': str(inLike), 
+                            'countLike': str(likescount),
+                            'userPosted':i.userId.id}
+                
+                passarray.append(holdjson)
+
+            return JsonResponse({"message": "Successful","data":passarray})
+        except Exception as e:
+            return JsonResponse({"message":"error","message":str(e)})
+        
+    return JsonResponse({"status":"error","message":"Invalid Request"})
+
 

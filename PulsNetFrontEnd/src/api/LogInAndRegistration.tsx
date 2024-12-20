@@ -46,9 +46,11 @@ async function LogInApi(email: string, password: string) {
         if (response.data.access && response.data.refresh) {
             localStorage.setItem("accessToken", response.data.access);
             localStorage.setItem("refreshToken", response.data.refresh);
+            localStorage.setItem("userId", response.data.userId);
             console.log("Success:", response.data);
             console.log(response.data.access)
             console.log(response.data.refresh)
+            window.location.href = "/allpost"
         }
         console.log("Success:", response.data);
         showToast(response.data.message)

@@ -3,6 +3,7 @@ import { useState } from "react"
 import '../styles/homepagestyle.css'
 import HeadComp from "../components/headNav"
 import PostComp from "../components/postComp"
+import getAllPostApi from "../../api/getAllpost"
 
 function likeactive(likepost:string) {
     if (likepost == "True") {
@@ -18,15 +19,12 @@ function likeactive(likepost:string) {
 }
 function AllPost() {
     var [allPost,setAllPost] = useState([{
-        'fullname': 'helloworld', 'dateCreated': 'July 6, 2003', 'caption': 'cagdsafnkjsandfkjasnfdjksnfkjasnfjkndkjansdjfnsadf',
-        'imageurl': 'images/userhold.png', 'liked': 'True', 'countLike': "34"
-    }, {
-        'fullname': 'helloworld', 'dateCreated': 'July 6, 2003', 'caption': 'cagdsafnkjsandfkjasnfdjksnfkjasnfjkndkjansdjfnsadf',
-        'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "25"
-    }, {
-        'fullname': 'helloworld', 'dateCreated': 'July 6, 2003', 'caption': 'cagdsafnkjsandfkjasnfdjksnfkjasnfjkndkjansdjfnsadf',
-        'imageurl': 'images/userhold.png', 'liked': 'True', 'countLike': "1"
+        'fullname': 'default', 'dateCreated': 'default', 'caption': 'default',
+        'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0"
     }])
+    
+    var userId = localStorage.getItem("userId")
+    {getAllPostApi(userId+"",setAllPost)}
 
     return <div className="allPageCont">
         {/* header component */}
