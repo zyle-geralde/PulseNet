@@ -33,6 +33,9 @@ function AllPost() {
         if (userId) {
             getAllPostApi(userId, setAllPost);
         }
+        else {
+            window.location.href = ".."
+        }
     }, [userId]);
 
     return <div className="allPageCont">

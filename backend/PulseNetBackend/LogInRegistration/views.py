@@ -129,6 +129,7 @@ def allpostview(request):
     if request.method == "POST":
         try:
             token_check = validate_access_token(request)
+            print(token_check)
 
             if not token_check["status"]:
                 return JsonResponse({"message": token_check["message"]})
@@ -164,8 +165,14 @@ def allpostview(request):
 
 
 def createPost(request):
+    if request.method == "POST":
+        caption = request.POST.get("caption")
+        imageUrl = request.FILES.get("imageUrl")
+        userId = request.POST.get("userId")
 
-    return JsonResponse({"message":"Successful"})
+        
+        return JsonResponse({"message":"Successful"})
+    return JsonResponse({"message":"Invalid request"})
 
 
 

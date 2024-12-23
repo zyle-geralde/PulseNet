@@ -117,6 +117,7 @@
     color: rgb(238, 27, 91);
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .allPostCont{
     display: flex;

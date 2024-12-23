@@ -15,7 +15,8 @@ interface Post {
     profimage:string
 }
 
-async function getAllPostApi(id:String,setAllPost: Dispatch<SetStateAction<Post[]>>) {
+async function getAllPostApi(id: String, setAllPost: Dispatch<SetStateAction<Post[]>>) {
+    
 
     await fetchCsrfToken();
 
@@ -51,10 +52,12 @@ async function getAllPostApi(id:String,setAllPost: Dispatch<SetStateAction<Post[
     console.log(response.data)
     setAllPost(response.data.jsondata)
     if (response.data.message == "Expired access token") {
+        console.log("expired")
         NewAccessToken()
         return
     }
     else if (response.data.message == "Invalid") {
+        console.log("Invalid")
         window.location.href = ".."
         return
     }
