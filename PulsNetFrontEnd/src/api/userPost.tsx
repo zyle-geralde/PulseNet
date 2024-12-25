@@ -33,6 +33,16 @@ async function UserPost(formdata:FormData) {
     if (response.data.message == "Successful") {
         window.location.reload()
     }
+    else if (response.data.message == "Expired access token") {
+        console.log("expired")
+        NewAccessToken()
+        return
+    }
+    else if (response.data.message == "Invalid") {
+        console.log("Invalid")
+        window.location.href = ".."
+        return
+    }
     console.log(response.data)
 }
 

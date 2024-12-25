@@ -65,6 +65,12 @@ function AllPost() {
                             {post.dateCreated}
                         </div>
                     </div>
+                    <div className="deleteEdit">
+                        <img src="images/Trash.png" className="uderIc"></img>
+                        <img src="images/ediIcon.png" className="uderIc"></img>
+                    </div>
+                    <div style={{ "fontSize": "1px", "opacity": "0" }}>8</div>
+                    <div style={{"fontSize":"1px","opacity":"0"}}>1</div>
                 </div>
                 <div className="postContext">
                     {post.caption}
