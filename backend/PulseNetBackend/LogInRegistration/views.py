@@ -156,7 +156,8 @@ def allpostview(request):
                             'liked': str(inLike), 
                             'countLike': str(likescount),
                             'userPosted':str(i.userId.id),
-                            'profimage':i.userId.imageurl}
+                            'profimage':i.userId.imageurl,
+                            'postId':str(i.id)}
                 
                 passarray.append(holdjson)
 
@@ -219,6 +220,25 @@ def createPost(request):
         savePost.save()
 
         return JsonResponse({"message":"Successful"})
+    return JsonResponse({"message":"Invalid request"})
+
+def deletePost(request):
+    if request.method == "POST":
+
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+        data = json.loads(request.body)
+        postId = data.get("postId")
+
+        delPost = Post.objects.get(id = int(postId))
+        delPost.delete()
+
+        return JsonResponse({"message":"Successful"})
+    
     return JsonResponse({"message":"Invalid request"})
 
 

@@ -12,7 +12,8 @@ interface Post {
     liked: string;
     countLike: string;
     userPosted:string,
-    profimage:string
+    profimage: string,
+    postId:string
 }
 
 async function getAllPostApi(id: String, setAllPost: Dispatch<SetStateAction<Post[]>>) {

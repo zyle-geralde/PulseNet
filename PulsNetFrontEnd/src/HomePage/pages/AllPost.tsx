@@ -5,6 +5,7 @@ import HeadComp from "../components/headNav"
 import PostComp from "../components/postComp"
 import getAllPostApi from "../../api/getAllpost"
 import { useEffect } from "react"
+import deletePostfunc from "../../api/deletePostapi"
 
 
 function likeactive(likepost: string) {
@@ -24,7 +25,7 @@ function AllPost() {
     var [allPost, setAllPost] = useState([{
         'fullname': 'default', 'dateCreated': 'default', 'caption': 'default',
         'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0", 'userPosted': '0',
-        'profimage': 'images/userhold.png'
+        'profimage': 'images/userhold.png','postId':"0"
     }])
 
     function showImage(urlshow: string | null) {
@@ -66,11 +67,11 @@ function AllPost() {
                         </div>
                     </div>
                     <div className="deleteEdit">
-                        <img src="images/Trash.png" className="uderIc"></img>
+                        <img src="images/Trash.png" className="uderIc" onClick={function (e) {
+                            deletePostfunc(post.postId)
+                        }}></img>
                         <img src="images/ediIcon.png" className="uderIc"></img>
                     </div>
-                    <div style={{ "fontSize": "1px", "opacity": "0" }}>8</div>
-                    <div style={{"fontSize":"1px","opacity":"0"}}>1</div>
                 </div>
                 <div className="postContext">
                     {post.caption}
