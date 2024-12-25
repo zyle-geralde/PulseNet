@@ -37,6 +37,18 @@ function AllPost() {
         }
         return null
     }
+
+    function showDeleteEdit(userId:string, postId:string) {
+        if (localStorage.getItem("userId") == userId) {
+            return <div className="deleteEdit">
+            <img src="images/Trash.png" className="uderIc" onClick={function (e) {
+                deletePostfunc(postId)
+            }}></img>
+            <img src="images/ediIcon.png" className="uderIc"></img>
+        </div>
+        }
+        return null
+    }
     
 
     var userId = localStorage.getItem("userId")
@@ -66,12 +78,7 @@ function AllPost() {
                             {post.dateCreated}
                         </div>
                     </div>
-                    <div className="deleteEdit">
-                        <img src="images/Trash.png" className="uderIc" onClick={function (e) {
-                            deletePostfunc(post.postId)
-                        }}></img>
-                        <img src="images/ediIcon.png" className="uderIc"></img>
-                    </div>
+                    {showDeleteEdit(post.userPosted, post.postId)}
                 </div>
                 <div className="postContext">
                     {post.caption}
