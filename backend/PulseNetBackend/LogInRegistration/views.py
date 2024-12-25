@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import json
+import uuid
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
@@ -7,6 +8,8 @@ from django.views.decorators.csrf import ensure_csrf_cookie  #set CSRF cookie if
 from .models import CustomerUser,Post
 from django.contrib.auth.hashers import make_password,check_password
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
+from django.conf import settings
+import os
 
 # Create your views here.
 
@@ -170,7 +173,44 @@ def createPost(request):
         imageUrl = request.FILES.get("imageUrl")
         userId = request.POST.get("userId")
 
+        print(caption)
+        print(imageUrl)
+        print(userId)
+        if imageUrl:
+            frontend_images_path = os.path.abspath(os.path.join(settings.BASE_DIR,'..','..','PulsNetFrontEnd', 'public', 'images'))
+            print(frontend_images_path)
+
+
+            file_extension = os.path.splitext(imageUrl.name)[1]
+            unique_name = f"{uuid.uuid4().hex}{file_extension}"
+
+            file_path = os.path.join(frontend_images_path,unique_name)
+            print(unique_name)
+            print(file_extension)    
+
+            with open(file_path, 'wb+') as destination:
+                for chunk in imageUrl.chunks():
+                    destination.write(chunk)
+
+            userPosted = CustomerUser.objects.get(id = int(userId))
+
+            savePost = Post(
+                userId = userPosted,
+                caption = caption,
+                imageUrl = f'images/{unique_name}'
+            )
+            savePost.save()
+
+            return JsonResponse({"message":"Successful"})
         
+        userPosted = CustomerUser.objects.get(id = int(userId))
+
+        savePost = Post(
+            userId = userPosted,
+            caption = caption,
+        )
+        savePost.save()
+
         return JsonResponse({"message":"Successful"})
     return JsonResponse({"message":"Invalid request"})
 

@@ -16,10 +16,12 @@ class CustomerUser(models.Model):
 class Post(models.Model):
     userId = models.ForeignKey(CustomerUser,on_delete=models.CASCADE)
     caption = models.TextField(default = "This is a default text")
-    imageUrl = models.CharField(max_length=1000,default="images/userhold.png")
+    imageUrl = models.CharField(max_length=1000,null=True,blank=True)
     dateUpdated = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(CustomerUser,related_name="customer_likes")
 
 
     def __str__(self):
         return f"{self.imageUrl} by {self.dateUpdated}"
+    
+

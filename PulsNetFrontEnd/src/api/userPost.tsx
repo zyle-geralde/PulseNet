@@ -30,6 +30,9 @@ async function UserPost(formdata:FormData) {
             withCredentials: true,
         }
     )
+    if (response.data.message == "Successful") {
+        window.location.reload()
+    }
     console.log(response.data)
 }
 

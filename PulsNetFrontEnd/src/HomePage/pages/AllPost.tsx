@@ -20,13 +20,23 @@ function likeactive(likepost: string) {
     }
 }
 
-
 function AllPost() {
     var [allPost, setAllPost] = useState([{
         'fullname': 'default', 'dateCreated': 'default', 'caption': 'default',
         'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0", 'userPosted': '0',
         'profimage': 'images/userhold.png'
     }])
+
+    function showImage(urlshow: string | null) {
+        console.log(urlshow == null)
+        if (urlshow) {
+            return<div className="postImgCont">
+                <img src={urlshow} className="ImgHolder"></img>
+            </div>
+        }
+        return null
+    }
+    
 
     var userId = localStorage.getItem("userId")
     useEffect(() => {
@@ -59,9 +69,7 @@ function AllPost() {
                 <div className="postContext">
                     {post.caption}
                 </div>
-                <div className="postImgCont">
-                    <img src={post.imageurl} className="ImgHolder"></img>
-                </div>
+                {showImage(post.imageurl)}
                 <div className="likeComment">
                     <div className="likeContclass">
                         {likeactive(post.liked)}

@@ -17,7 +17,6 @@ interface Post {
 
 async function getAllPostApi(id: String, setAllPost: Dispatch<SetStateAction<Post[]>>) {
     
-
     await fetchCsrfToken();
 
     const access_token = localStorage.getItem("accessToken")
@@ -49,7 +48,7 @@ async function getAllPostApi(id: String, setAllPost: Dispatch<SetStateAction<Pos
         }
     )
 
-    console.log(response.data)
+    console.log(response.data.jsondata)
     setAllPost(response.data.jsondata)
     if (response.data.message == "Expired access token") {
         console.log("expired")
