@@ -295,10 +295,12 @@ def getComments(request):
         try:
             data = json.loads(request.body)
             postId = data.get("postId")
+            print("Post Id comments ",postId)
 
-            allComments = Comments.objects.filter(postId = int(postId))
+            allComments = Comments.objects.filter(postId = int(postId)).values()
+            comment_list = list(allComments)
 
-            return JsonResponse({"message":"Successful","result":allComments})
+            return JsonResponse({"message":"Successful","result":comment_list})
         except Exception:
             return JsonResponse({"message":"An exception occured"})
 

@@ -8,6 +8,7 @@ import { useEffect } from "react"
 import deletePostfunc from "../../api/deletePostapi"
 import { Toast } from "bootstrap"
 import EditPostApi from "../../api/editPostapi"
+import GetCommentsApi from "../../api/getCommentsapi"
 
 function likeactive(likepost: string) {
     if (likepost == "True") {
@@ -151,7 +152,9 @@ function AllPost() {
                         {likeactive(post.liked)}
                         <div className="countLike">{post.countLike}</div>
                     </div>
-                    <div className="commentContclass" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div className="commentContclass" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={function (e) {
+                        GetCommentsApi(post.postId+"")
+                    }} >
                         <img src="images/commentIcon.png" className="commentcls"></img>
                         <div className="commentlabel">Comment</div>
                     </div>
