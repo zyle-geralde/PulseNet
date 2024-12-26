@@ -28,6 +28,8 @@ function AllPost() {
         'profimage': 'images/userhold.png','postId':"0"
     }])
 
+    var [forEditImage,setForEditImage] = useState("")
+
     function showImage(urlshow: string | null) {
         console.log(urlshow == null)
         if (urlshow) {
@@ -38,13 +40,15 @@ function AllPost() {
         return null
     }
 
-    function showDeleteEdit(userId:string, postId:string) {
+    function showDeleteEdit(userId:string, postId:string, imgUrl:string) {
         if (localStorage.getItem("userId") == userId) {
             return <div className="deleteEdit">
             <img src="images/Trash.png" className="uderIc" onClick={function (e) {
                 deletePostfunc(postId)
             }}></img>
-            <img src="images/ediIcon.png" className="uderIc"></img>
+                <img src="images/ediIcon.png" className="uderIc" data-bs-toggle="modal" data-bs-target="#editModal" onClick={function (e) {
+                    setForEditImage(imgUrl)
+            }}></img>
         </div>
         }
         return null
@@ -78,7 +82,7 @@ function AllPost() {
                             {post.dateCreated}
                         </div>
                     </div>
-                    {showDeleteEdit(post.userPosted, post.postId)}
+                    {showDeleteEdit(post.userPosted, post.postId,post.imageurl)}
                 </div>
                 <div className="postContext">
                     {post.caption}
@@ -89,9 +93,9 @@ function AllPost() {
                         {likeactive(post.liked)}
                         <div className="countLike">{post.countLike}</div>
                     </div>
-                    <div className="commentContclass">
+                    <div className="commentContclass" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <img src="images/commentIcon.png" className="commentcls"></img>
-                        <div className="commentlabel" data-bs-toggle="modal" data-bs-target="#exampleModal">Comment</div>
+                        <div className="commentlabel">Comment</div>
                     </div>
                 </div>
             </div>
@@ -130,6 +134,27 @@ function AllPost() {
                         <div className="commentsendCont">
                             <input type="text" placeholder="type here " className="commentInp"></input>
                             <img src="images/sendPost.png" className="commentSend"></img>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="modal fade" id="editModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">EditPost</h1>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        <textarea className="editPostcaption"></textarea>
+                        <div className="photolinkedit">{forEditImage}<span>
+                            {forEditImage != null?<img src="images/Trash.png" className="uderIc"></img>:null }
+                        </span></div>
+                        <div style={{"display":"flex","flexDirection":"row","justifyContent":"space-between","alignItems":"center"}}>
+                            <div className="AddPhotoEdit">Add Image</div>
+                            <img src="images/sendPost.png" className="sendPost"></img>
                         </div>
                     </div>
                 </div>

@@ -242,4 +242,35 @@ def deletePost(request):
     return JsonResponse({"message":"Invalid request"})
 
 
+def editPost(request):
+    if request.method == "POST":
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+        caption = request.POST.get("caption")
+        imageUrl = request.FILES.get("imageUrl")
+        postId = request.POST.get("postId")
+        imgIndic = request.POST.get("indic")
+
+        print(caption)
+        print(imageUrl)
+        print(imgIndic)
+
+        postEdit = Post.objects.get(id = int(postId))
+        if imgIndic == postEdit.imageUrl:
+            print("do not change the image")
+        elif imgIndic == None:
+            print("image should be null")
+        else:
+            print("change the image")
+
+        return JsonResponse({"message":"Successful"})
+    
+    return JsonResponse({"message":"Invalid request"})
+
+
+
 
