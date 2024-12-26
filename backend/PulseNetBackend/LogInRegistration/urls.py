@@ -14,5 +14,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/allpost/',views.allpostview,name='allpostview'),
     path('api/createPost/',views.createPost,name = "createPost"),
-    path('api/deletePost/',views.deletePost,name = "deletePost")
+    path('api/deletePost/',views.deletePost,name = "deletePost"),
+    path('api/editPost/',views.editPost,name = "editPost"),
 ]
