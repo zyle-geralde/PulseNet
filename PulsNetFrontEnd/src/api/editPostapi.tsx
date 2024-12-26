@@ -19,7 +19,7 @@ async function EditPostApi(formdata: FormData) {
         console.log(localStorage)
     }
 
-    const response = await axios.post('http://localhost:8000/api/createPost/', formdata,
+    const response = await axios.post('http://localhost:8000/api/editPost/', formdata,
         {
             headers: {
                 "Authorization": `Bearer ${access_token}`,

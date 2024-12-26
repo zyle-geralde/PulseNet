@@ -255,17 +255,35 @@ def editPost(request):
         postId = request.POST.get("postId")
         imgIndic = request.POST.get("indic")
 
-        print(caption)
-        print(imageUrl)
-        print(imgIndic)
-
         postEdit = Post.objects.get(id = int(postId))
         if imgIndic == postEdit.imageUrl:
+            postEdit.caption = caption
             print("do not change the image")
-        elif imgIndic == None:
+        elif imgIndic == "":
+            postEdit.caption = caption
+            postEdit.imageUrl = None
             print("image should be null")
         else:
+            frontend_images_path = os.path.abspath(os.path.join(settings.BASE_DIR,'..','..','PulsNetFrontEnd', 'public', 'images'))
+            print(frontend_images_path)
+
+
+            file_extension = os.path.splitext(imageUrl.name)[1]
+            unique_name = f"{uuid.uuid4().hex}{file_extension}"
+
+            file_path = os.path.join(frontend_images_path,unique_name)
+            print(unique_name)
+            print(file_extension)    
+
+            with open(file_path, 'wb+') as destination:
+                for chunk in imageUrl.chunks():
+                    destination.write(chunk)
+
+            postEdit.caption = caption
+            postEdit.imageUrl = f'images/{unique_name}'
             print("change the image")
+
+        postEdit.save()
 
         return JsonResponse({"message":"Successful"})
     

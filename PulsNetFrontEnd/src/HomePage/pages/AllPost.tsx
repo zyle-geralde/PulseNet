@@ -6,7 +6,8 @@ import PostComp from "../components/postComp"
 import getAllPostApi from "../../api/getAllpost"
 import { useEffect } from "react"
 import deletePostfunc from "../../api/deletePostapi"
-
+import { Toast } from "bootstrap"
+import EditPostApi from "../../api/editPostapi"
 
 function likeactive(likepost: string) {
     if (likepost == "True") {
@@ -30,15 +31,46 @@ function AllPost() {
 
     var [forEditImage, setForEditImage] = useState<string | null>(null)
     var [postImage, setPostImage] = useState<File | null>(null);
-    var [forEditCaption,setForEditCaption] = useState("")
+    var [forEditCaption, setForEditCaption] = useState("")
+    var [forPostId,setForPostId] = useState("")
     
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    function clickSend() {
+        if (forEditCaption.trim() == "") {
+            alert("Invalid Post")
+        }
+        else {
+            const formData = new FormData();
+            if (postImage) {
+                formData.append("imageUrl", postImage);
+            }
+            else {
+                formData.append("imageUrl", "");
+            }
+            formData.append("postId", forPostId);
+
+            formData.append("caption", forEditCaption);
+
+            if (forEditImage) {
+                formData.append("indic", forEditImage);
+            }
+            else {
+                formData.append("indic", "");
+            }
+
+            EditPostApi(formData)
+
+            
+        }
+    }
 
     function handleclickimage() {
         if (fileInputRef.current) {
             console.log("foreditimage",forEditImage)
             console.log("postImage", postImage)
             console.log("caption", forEditCaption)
+            console.log("postId",forPostId)
             fileInputRef.current.click();
         }
 
@@ -73,6 +105,7 @@ function AllPost() {
                 <img src="images/ediIcon.png" className="uderIc" data-bs-toggle="modal" data-bs-target="#editModal" onClick={function (e) {
                     setForEditImage(imgUrl)
                     setForEditCaption(captionEdit)
+                    setForPostId(postId)
             }}></img>
         </div>
         }
@@ -178,7 +211,10 @@ function AllPost() {
                                 }}></button>
                     </div>
                     <div className="modal-body">
-                        <textarea className="editPostcaption" value={forEditCaption}></textarea>
+                        <textarea className="editPostcaption" value={forEditCaption} onChange={function (e) {
+                            setForEditCaption(e.target.value)
+                            console.log(forEditCaption)
+                        }}></textarea>
                         <div className="photolinkedit">{forEditImage}<span>
                             {forEditImage != null ? <img src="images/Trash.png" className="uderIc" onClick={
                                 function (e: React.MouseEvent<HTMLImageElement>) {
@@ -188,7 +224,7 @@ function AllPost() {
                         </span></div>
                         <div style={{"display":"flex","flexDirection":"row","justifyContent":"space-between","alignItems":"center"}}>
                             <div className="AddPhotoEdit" onClick={handleclickimage}>Add Image</div>
-                            <img src="images/sendPost.png" className="sendPost"></img>
+                            <img src="images/sendPost.png" className="sendPost" onClick={clickSend}></img>
                             <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} style={{"display":"none"}}></input>
                         </div>
                     </div>
