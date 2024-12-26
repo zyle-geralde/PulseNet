@@ -23,6 +23,16 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.imageUrl} by {self.dateUpdated}"
+    
+class Comments(models.Model):
+    userId = models.ForeignKey(CustomerUser,on_delete=models.CASCADE)
+    postId = models.ForeignKey(Post,on_delete=models.CASCADE)
+    comment = models.TextField(default="default comment")
+    dateCreated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Id no. {self.id}"
+
 
     
 

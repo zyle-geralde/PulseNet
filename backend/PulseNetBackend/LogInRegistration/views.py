@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie  #set CSRF cookie if not set
-from .models import CustomerUser,Post
+from .models import CustomerUser,Post,Comments
 from django.contrib.auth.hashers import make_password,check_password
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from django.conf import settings
@@ -288,6 +288,19 @@ def editPost(request):
         return JsonResponse({"message":"Successful"})
     
     return JsonResponse({"message":"Invalid request"})
+
+
+def getComments(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            postId = data.get("postId")
+
+            allComments = Comments.objects.filter(postId = int(postId))
+
+            return JsonResponse({"message":"Successful","result":allComments})
+        except Exception:
+            return JsonResponse({"message":"An exception occured"})
 
 
 
