@@ -1,5 +1,5 @@
-import axios from "axios"
-import { useState,useRef } from "react"
+import axios, { all } from "axios"
+import { useState, useRef } from "react"
 import '../styles/homepagestyle.css'
 import HeadComp from "../components/headNav"
 import PostComp from "../components/postComp"
@@ -27,14 +27,16 @@ function AllPost() {
     var [allPost, setAllPost] = useState([{
         'fullname': 'default', 'dateCreated': 'default', 'caption': 'default',
         'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0", 'userPosted': '0',
-        'profimage': 'images/userhold.png','postId':"0"
+        'profimage': 'images/userhold.png', 'postId': "0"
     }])
+
+    var [allComments, setAllComments] = useState([])
 
     var [forEditImage, setForEditImage] = useState<string | null>(null)
     var [postImage, setPostImage] = useState<File | null>(null);
     var [forEditCaption, setForEditCaption] = useState("")
-    var [forPostId,setForPostId] = useState("")
-    
+    var [forPostId, setForPostId] = useState("")
+
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     function clickSend() {
@@ -62,16 +64,16 @@ function AllPost() {
 
             EditPostApi(formData)
 
-            
+
         }
     }
 
     function handleclickimage() {
         if (fileInputRef.current) {
-            console.log("foreditimage",forEditImage)
+            console.log("foreditimage", forEditImage)
             console.log("postImage", postImage)
             console.log("caption", forEditCaption)
-            console.log("postId",forPostId)
+            console.log("postId", forPostId)
             fileInputRef.current.click();
         }
 
@@ -82,37 +84,49 @@ function AllPost() {
             setForEditImage(e.target.files[0].name);
             setPostImage(e.target.files[0])
 
-            console.log("foreditimage",forEditImage)
-            console.log("postImage",postImage)
+            console.log("foreditimage", forEditImage)
+            console.log("postImage", postImage)
         }
     }
 
     function showImage(urlshow: string | null) {
         console.log(urlshow == null)
         if (urlshow) {
-            return<div className="postImgCont">
+            return <div className="postImgCont">
                 <img src={urlshow} className="ImgHolder"></img>
             </div>
         }
         return null
     }
 
-    function showDeleteEdit(userId:string, postId:string, imgUrl:string, captionEdit:string) {
+    function showDeleteEdit(userId: string, postId: string, imgUrl: string, captionEdit: string) {
         if (localStorage.getItem("userId") == userId) {
             return <div className="deleteEdit">
-            <img src="images/Trash.png" className="uderIc" onClick={function (e) {
-                deletePostfunc(postId)
-            }}></img>
+                <img src="images/Trash.png" className="uderIc" onClick={function (e) {
+                    deletePostfunc(postId)
+                }}></img>
                 <img src="images/ediIcon.png" className="uderIc" data-bs-toggle="modal" data-bs-target="#editModal" onClick={function (e) {
                     setForEditImage(imgUrl)
                     setForEditCaption(captionEdit)
                     setForPostId(postId)
+                }}></img>
+            </div>
+        }
+        return null
+    }
+
+    function showdelEditforComment(userId:string) {
+        if (localStorage.getItem("userId") == userId) {
+            return<div className="deleteEdit" style={{"marginTop":"10px"}}>
+            <img src="images/Trash.png" className="uderIc" style={{"height":"15px","width":"15px"}} onClick={function (e) {
+            }}></img>
+            <img src="images/ediIcon.png" className="uderIc"style={{"height":"15px","width":"15px"}} onClick={function (e) {
             }}></img>
         </div>
         }
         return null
     }
-    
+
 
     var userId = localStorage.getItem("userId")
     useEffect(() => {
@@ -141,7 +155,7 @@ function AllPost() {
                             {post.dateCreated}
                         </div>
                     </div>
-                    {showDeleteEdit(post.userPosted, post.postId,post.imageurl,post.caption)}
+                    {showDeleteEdit(post.userPosted, post.postId, post.imageurl, post.caption)}
                 </div>
                 <div className="postContext">
                     {post.caption}
@@ -152,8 +166,8 @@ function AllPost() {
                         {likeactive(post.liked)}
                         <div className="countLike">{post.countLike}</div>
                     </div>
-                    <div className="commentContclass" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={function (e) {
-                        GetCommentsApi(post.postId+"")
+                    <div className="commentContclass" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={async function (e) {
+                        await GetCommentsApi(post.postId + "", setAllComments)
                     }} >
                         <img src="images/commentIcon.png" className="commentcls"></img>
                         <div className="commentlabel">Comment</div>
@@ -171,26 +185,23 @@ function AllPost() {
                     </div>
                     <div className="modal-body">
                         <div className="commentsContain">
-                            <div className="IndivComment">
-                                <img src="images/userhold.png" className="commentUserimg"></img>
-                                <div className="usercommentTextCont">
-                                    <div className="uppercomment">
-                                        <div className="userCommentName">
-                                            john does asdnfslndfjsadnasdfasdfsafsdfaasdfasfsafasdfsadfasfsafsadf
+                            {allComments.map((comment, index) => (
+                                <div className="IndivComment">
+                                    <img src="images/userhold.png" className="commentUserimg"></img>
+                                    <div className="usercommentTextCont">
+                                        <div className="uppercomment">
+                                            <div className="userCommentName">
+                                                {comment["fullname"]}
+                                            </div>
+                                            <div className="userCommentdiv">
+                                                {comment["message"]}
+                                            </div>
+                                            {showdelEditforComment(comment["userId"])}
                                         </div>
-                                        <div className="userCommentdiv">
-                                            sakjdfjkasdfkjasdfjkasdfkjsadkjfnsadjkfnaskjdfnjkasdnfkjdasnfkjsafdn
-                                            asjkdfnjksanfdjkanfsjkasnfkjasndfksanjkfnksjanfjasf
-                                            asdkfnsakjdfnskjadfnskjanfkjsandfkjsandkjfnsakdjfnaskjdf
-                                            sakjdfjkasdfkjasdfjkasdfkjsadkjfnsadjkfnaskjdfnjkasdnfkjdasnfkjsafdn
-                                            asjkdfnjksanfdjkanfsjkasnfkjasndfksanjkfnksjanfjasf
-                                            asdkfnsakjdfnskjadfnskjanfkjsandfkjsandkjfnsakdjfnaskjdf
-                                        </div>
+                                        <div className="dateCommented">{comment["dateCreated"]}</div>
                                     </div>
-                                    <div className="dateCommented">July 6 2023</div>
                                 </div>
-                            </div>
-
+                            ))}
                         </div>
                         <div className="commentsendCont">
                             <input type="text" placeholder="type here " className="commentInp"></input>
@@ -207,11 +218,11 @@ function AllPost() {
                     <div className="modal-header">
                         <h1 className="modal-title fs-5" id="exampleModalLabel">EditPost</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={
-                                function (e: React.MouseEvent<HTMLButtonElement>) {
-                                    setPostImage(null)
-                                    setForEditImage(null)
-                                    setForEditCaption("")
-                                }}></button>
+                            function (e: React.MouseEvent<HTMLButtonElement>) {
+                                setPostImage(null)
+                                setForEditImage(null)
+                                setForEditCaption("")
+                            }}></button>
                     </div>
                     <div className="modal-body">
                         <textarea className="editPostcaption" value={forEditCaption} onChange={function (e) {
@@ -223,12 +234,12 @@ function AllPost() {
                                 function (e: React.MouseEvent<HTMLImageElement>) {
                                     setPostImage(null)
                                     setForEditImage(null)
-                                }}></img>:null }
+                                }}></img> : null}
                         </span></div>
-                        <div style={{"display":"flex","flexDirection":"row","justifyContent":"space-between","alignItems":"center"}}>
+                        <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "space-between", "alignItems": "center" }}>
                             <div className="AddPhotoEdit" onClick={handleclickimage}>Add Image</div>
                             <img src="images/sendPost.png" className="sendPost" onClick={clickSend}></img>
-                            <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} style={{"display":"none"}}></input>
+                            <input type="file" accept="image/*" ref={fileInputRef} onChange={handleFileChange} style={{ "display": "none" }}></input>
                         </div>
                     </div>
                 </div>

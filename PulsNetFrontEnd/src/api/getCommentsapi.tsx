@@ -4,7 +4,7 @@ import fetchCsrfToken from './csrftokenapi';
 import NewAccessToken from './newAccessToken';
 import { Dispatch, SetStateAction } from 'react';
 
-async function GetCommentsApi(postId:string) {
+async function GetCommentsApi(postId:string, setAllComments:Dispatch<SetStateAction<never[]>>) {
     await fetchCsrfToken();
 
     const access_token = localStorage.getItem("accessToken")
@@ -31,7 +31,8 @@ async function GetCommentsApi(postId:string) {
         }
     )
 
-    console.log(response.data)
+    console.log("result ",response.data.result)
+    setAllComments(response.data.result)
 }
 
 

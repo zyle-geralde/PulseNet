@@ -292,14 +292,32 @@ def editPost(request):
 
 def getComments(request):
     if request.method == "POST":
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
         try:
             data = json.loads(request.body)
             postId = data.get("postId")
             print("Post Id comments ",postId)
 
-            allComments = Comments.objects.filter(postId = int(postId)).values()
-            comment_list = list(allComments)
+            allComments = Comments.objects.filter(postId = int(postId))
 
+            comment_list = []
+            for nn in allComments:
+                holdlist = {
+                    'id':str(nn.id),
+                    'fullname': nn.userId.firstname + " " + nn.userId.lastname,
+                    'dateCreated': nn.dateCreated,
+                    'message':nn.comment,
+                    'userId':str(nn.userId.id),
+                    'postId':str(nn.postId.id),
+                }
+
+                comment_list.append(holdlist)
+
+            print(comment_list)
             return JsonResponse({"message":"Successful","result":comment_list})
         except Exception:
             return JsonResponse({"message":"An exception occured"})
