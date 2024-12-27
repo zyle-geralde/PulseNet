@@ -349,6 +349,29 @@ def createComment(request):
 
         return JsonResponse({"message":"Successful"})
     return JsonResponse({"message":"Invalid request"})
+
+
+def deleteComment(request):
+    if request.method == "POST":
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+        try:
+            data = json.loads(request.body)
+            commentId = data.get("commentId")
+
+            delComment = Comments.objects.get(id = int(commentId))
+            delComment.delete()
+
+            return JsonResponse({"message":"Successful"})
+        except Exception:
+            return JsonResponse({"message":"An exception occured"})
+
+        
+    return JsonResponse({"message":"Invalid request"})
         
 
 
