@@ -33,6 +33,17 @@ async function GetCommentsApi(postId:string, setAllComments:Dispatch<SetStateAct
 
     console.log("result ",response.data.result)
     setAllComments(response.data.result)
+
+    if (response.data.message == "Expired access token") {
+        console.log("expired")
+        NewAccessToken()
+        return
+    }
+    else if (response.data.message == "Invalid") {
+        console.log("Invalid")
+        window.location.href = ".."
+        return
+    }
 }
 
 

@@ -321,6 +321,36 @@ def getComments(request):
             return JsonResponse({"message":"Successful","result":comment_list})
         except Exception:
             return JsonResponse({"message":"An exception occured"})
+    return JsonResponse({"message":"Not a Post request"})
+
+def createComment(request):
+    if request.method == "POST":
+
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+        data = json.loads(request.body)
+        userId = data.get("userId")
+        postId = data.get("postId")
+        comment = data.get("comment")
+
+        userGet = CustomerUser.objects.get(id = int(userId))
+        postGet = Post.objects.get(id = int(postId))
+
+        createdComment = Comments(
+            userId = userGet,
+            postId = postGet,
+            comment = comment
+        )
+        createdComment.save()
+
+        return JsonResponse({"message":"Successful"})
+    return JsonResponse({"message":"Invalid request"})
+        
+
 
 
 

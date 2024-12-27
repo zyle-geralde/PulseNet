@@ -9,6 +9,7 @@ import deletePostfunc from "../../api/deletePostapi"
 import { Toast } from "bootstrap"
 import EditPostApi from "../../api/editPostapi"
 import GetCommentsApi from "../../api/getCommentsapi"
+import CreateCommentApi from "../../api/createCommentapi"
 
 function likeactive(likepost: string) {
     if (likepost == "True") {
@@ -36,6 +37,9 @@ function AllPost() {
     var [postImage, setPostImage] = useState<File | null>(null);
     var [forEditCaption, setForEditCaption] = useState("")
     var [forPostId, setForPostId] = useState("")
+
+    var [commentMessage, setCommentMessage] = useState("")
+    var [postIdcomment, setPostIdComment] = useState("")
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -167,6 +171,7 @@ function AllPost() {
                         <div className="countLike">{post.countLike}</div>
                     </div>
                     <div className="commentContclass" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={async function (e) {
+                        setPostIdComment(post.postId)
                         await GetCommentsApi(post.postId + "", setAllComments)
                     }} >
                         <img src="images/commentIcon.png" className="commentcls"></img>
@@ -204,8 +209,18 @@ function AllPost() {
                             ))}
                         </div>
                         <div className="commentsendCont">
-                            <input type="text" placeholder="type here " className="commentInp"></input>
-                            <img src="images/sendPost.png" className="commentSend"></img>
+                            <input type="text" placeholder="type here " className="commentInp" onChange={function (e) {
+                                setCommentMessage(e.target.value)
+                            }}></input>
+                            <img src="images/sendPost.png" className="commentSend" onClick={function (e) {
+                                if (commentMessage.trim() == "") {
+                                    alert("invalid credentials")
+                                    return
+                                }
+                                else {
+                                    CreateCommentApi(localStorage.getItem("userId")+"",postIdcomment+"",commentMessage)
+                                }
+                            }}></img>
                         </div>
                     </div>
                 </div>
