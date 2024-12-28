@@ -145,7 +145,7 @@ function AllPost() {
                             <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "end", "alignItems": "center" }}>
                                 <img src="images/sendPost.png" className="sendPost" style={{ "height": "15px", "width": "15px" }} onClick={function (e) {
                                     if (commentEdit.trim() == "") {
-                                        alert("not good")
+                                        alert("Invalid credentials")
                                     }
                                     else {
                                         EditCommentApi(commentId,commentEdit)

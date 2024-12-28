@@ -20,4 +20,5 @@ urlpatterns = [
     path('api/createComment/',views.createComment,name="createComment"),
     path('api/deleteComment/',views.deleteComment,name="deleteComment"),
     path('api/editComment/',views.editComment,name="editComment"),
+    path('api/changeLikes/',views.changeLike,name="changeLike")
 ]

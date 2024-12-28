@@ -402,6 +402,36 @@ def editComment(request):
     return JsonResponse({"message":"Invalid request"})
 
 
+def changeLike(request):
+    if request.method == "POST":
+
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+
+        try:
+            data = json.loads(request.body)
+            postId = data.get("postId")
+            userId = data.get("userId")
+
+            postLiked = Post.objects.get(id = int(postId))
+            userLiked = CustomerUser.objects.get(id = int(userId))
+
+            if postLiked.likes.filter(id=userLiked.id).exists():
+                postLiked.likes.remove(userLiked)
+            else:
+                postLiked.likes.add(userLiked)
+
+            return JsonResponse({"message":"Successful"})
+        except Exception:
+            return JsonResponse({"message":"An exception occured"})
+
+    return JsonResponse({"message":"Invalid request"})
+
+
         
 
 
