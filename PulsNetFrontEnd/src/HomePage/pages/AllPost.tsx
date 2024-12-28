@@ -13,15 +13,20 @@ import CreateCommentApi from "../../api/createCommentapi"
 import DeleteCommentApi from "../../api/deleteCommentApi"
 import Modal from "bootstrap"
 import EditCommentApi from "../../api/editCommentApi"
+import ChangeLikeApi from "../../api/changeLikeApi"
 
-function likeactive(likepost: string) {
+function likeactive(likepost: string,postId:string,userId:string) {
     if (likepost == "True") {
-        return <div className="likeimgcont">
+        return <div className="likeimgcont" onClick={function (e) {
+            ChangeLikeApi(postId,userId)
+        }}>
             <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
         </div>
     }
     else {
-        return <div className="likeimgconttwo">
+        return <div className="likeimgconttwo" onClick={function (e) {
+            ChangeLikeApi(postId,userId)
+        }}>
             <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
         </div>
     }
@@ -196,7 +201,7 @@ function AllPost() {
                 {showImage(post.imageurl)}
                 <div className="likeComment">
                     <div className="likeContclass">
-                        {likeactive(post.liked)}
+                        {likeactive(post.liked,post.postId+"",localStorage.getItem("userId")+"")}
                         <div className="countLike">{post.countLike}</div>
                     </div>
                     <div className="commentContclass" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={async function (e) {
