@@ -17,17 +17,17 @@ import EditCommentApi from "../../api/editCommentApi"
 import ChangeLikeApi from "../../api/changeLikeApi"
 import getUserPostApi from "../../api/getPostUserApi"
 
-function likeactive(likepost: string,postId:string,userId:string) {
+function likeactive(likepost: string, postId: string, userId: string) {
     if (likepost == "True") {
         return <div className="likeimgcont" onClick={function (e) {
-            ChangeLikeApi(postId,userId)
+            ChangeLikeApi(postId, userId)
         }}>
             <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
         </div>
     }
     else {
         return <div className="likeimgconttwo" onClick={function (e) {
-            ChangeLikeApi(postId,userId)
+            ChangeLikeApi(postId, userId)
         }}>
             <img src="images/thumbsUp.png" className="thumbsUpcls"></img>
         </div>
@@ -55,7 +55,7 @@ function AllPost() {
     var [commentEdit, setCommentEdit] = useState("")
 
     const location = useLocation();
-    
+
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -135,7 +135,7 @@ function AllPost() {
         return null
     }
 
-    function showdelEditforComment(userId: string, commentId: string, message:string) {
+    function showdelEditforComment(userId: string, commentId: string, message: string) {
         if (localStorage.getItem("userId") == userId) {
             return <div className="deleteEdit" style={{ "marginTop": "10px" }}>
                 <img src="images/Trash.png" className="uderIc" style={{ "height": "15px", "width": "15px" }} onClick={function (e) {
@@ -145,7 +145,7 @@ function AllPost() {
                     <img src="images/ediIcon.png" className="uderIc dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style={{ "height": "15px", "width": "15px" }} onClick={function (e) {
                         setCommentEdit(message)
                     }}></img>
-                    <ul className="dropdown-menu" style={{"padding":"10px"}}>
+                    <ul className="dropdown-menu" style={{ "padding": "10px" }}>
                         <li><textarea className="editPostcaption" style={{ "height": "100px" }} value={commentEdit} onChange={function (e) {
                             setCommentEdit(e.target.value)
                             console.log(commentEdit)
@@ -157,7 +157,7 @@ function AllPost() {
                                         alert("Invalid credentials")
                                     }
                                     else {
-                                        EditCommentApi(commentId,commentEdit)
+                                        EditCommentApi(commentId, commentEdit)
                                     }
                                 }}></img>
                             </div>
@@ -177,7 +177,7 @@ function AllPost() {
             if (location.pathname === "/userpost") {
                 getUserPostApi(userId, setAllPost)
             }
-            else if(location.pathname === "/allpost"){
+            else if (location.pathname === "/allpost") {
                 getAllPostApi(userId, setAllPost);
             }
         }
@@ -190,16 +190,41 @@ function AllPost() {
         console.log("Route changed to:", location.pathname);
 
         if (location.pathname === "/userpost") {
-            getUserPostApi(userId+"", setAllPost)
+            getUserPostApi(userId + "", setAllPost)
         }
         else if (location.pathname === "/allpost") {
-            getAllPostApi(userId+"", setAllPost);
+            getAllPostApi(userId + "", setAllPost);
         }
     }, [location]);
 
     return <div className="allPageCont">
         {/* header component */}
         <HeadComp />
+        <div className="conatinProfileView">
+            <div style={{"display":"flex","flexDirection":"row","justifyContent":"center"}}>
+                <div className="profilePicChanges">
+                    <img src={'images/userhold.png'} className="holdepProfileView"></img>
+                    <img src={'images/ediIcon.png'} className="holdEditprofileView"></img>
+                </div>
+            </div>
+            <div style={{"display":"flex","flexDirection":"column","wordBreak":"break-word","marginTop":"20px","fontSize":"15px"}}>
+                <div style={{"marginBottom":"10px"}}>
+                    <strong>First Name: </strong><span>Zyle Geralde</span>
+                </div>
+                <div style={{"marginBottom":"10px"}}>
+                    <strong>Last Name: </strong><span>dela pena</span>
+                </div>
+                <div style={{"marginBottom":"10px"}}>
+                    <strong>Age: </strong><span> 21</span>
+                </div>
+                <div style={{"marginBottom":"10px"}}>
+                    <strong>Gender: </strong><span>Male</span>
+                </div>
+                <div style={{"marginBottom":"10px"}}>
+                    <strong>Address: </strong><span>Ticad Bantayan Cebu</span>
+                </div>
+            </div>
+        </div>
         <PostComp />
 
         {allPost.map((post, index) => (
@@ -222,7 +247,7 @@ function AllPost() {
                 {showImage(post.imageurl)}
                 <div className="likeComment">
                     <div className="likeContclass">
-                        {likeactive(post.liked,post.postId+"",localStorage.getItem("userId")+"")}
+                        {likeactive(post.liked, post.postId + "", localStorage.getItem("userId") + "")}
                         <div className="countLike">{post.countLike}</div>
                     </div>
                     <div className="commentContclass" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={async function (e) {
@@ -256,7 +281,7 @@ function AllPost() {
                                             <div className="userCommentdiv">
                                                 {comment["message"]}
                                             </div>
-                                            {showdelEditforComment(comment["userId"], comment["id"],comment["message"])}
+                                            {showdelEditforComment(comment["userId"], comment["id"], comment["message"])}
                                         </div>
                                         <div className="dateCommented">{comment["dateCreated"]}</div>
 
