@@ -11,6 +11,7 @@ import EditPostApi from "../../api/editPostapi"
 import GetCommentsApi from "../../api/getCommentsapi"
 import CreateCommentApi from "../../api/createCommentapi"
 import DeleteCommentApi from "../../api/deleteCommentApi"
+import Modal from "bootstrap"
 
 function likeactive(likepost: string) {
     if (likepost == "True") {
@@ -41,6 +42,10 @@ function AllPost() {
 
     var [commentMessage, setCommentMessage] = useState("")
     var [postIdcomment, setPostIdComment] = useState("")
+
+
+    var [commentEdit, setCommentEdit] = useState("")
+    
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -120,15 +125,30 @@ function AllPost() {
         return null
     }
 
-    function showdelEditforComment(userId:string,commentId:string) {
+    function showdelEditforComment(userId: string, commentId: string, message:string) {
         if (localStorage.getItem("userId") == userId) {
-            return<div className="deleteEdit" style={{"marginTop":"10px"}}>
+            return <div className="deleteEdit" style={{ "marginTop": "10px" }}>
                 <img src="images/Trash.png" className="uderIc" style={{ "height": "15px", "width": "15px" }} onClick={function (e) {
                     DeleteCommentApi(commentId)
                 }}></img>
-            <img src="images/ediIcon.png" className="uderIc" data-bs-toggle="modal" data-bs-target="#editCommentModal" style={{"height":"15px","width":"15px"}} onClick={function (e) {
-            }}></img>
-        </div>
+                <div className="btn-group dropend" >
+                    <img src="images/ediIcon.png" className="uderIc dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style={{ "height": "15px", "width": "15px" }} onClick={function (e) {
+                        setCommentEdit(message)
+                    }}></img>
+                    <ul className="dropdown-menu" style={{"padding":"10px"}}>
+                        <li><textarea className="editPostcaption" style={{ "height": "100px" }} value={commentEdit} onChange={function (e) {
+                            setCommentEdit(e.target.value)
+                            console.log(commentEdit)
+                        }}></textarea></li>
+                        <li>
+                            <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "end", "alignItems": "center" }}>
+                                <img src="images/sendPost.png" className="sendPost" style={{"height":"15px","width":"15px"}} onClick={function (e) {
+                                }}></img>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         }
         return null
     }
@@ -203,9 +223,10 @@ function AllPost() {
                                             <div className="userCommentdiv">
                                                 {comment["message"]}
                                             </div>
-                                            {showdelEditforComment(comment["userId"],comment["id"])}
+                                            {showdelEditforComment(comment["userId"], comment["id"],comment["message"])}
                                         </div>
                                         <div className="dateCommented">{comment["dateCreated"]}</div>
+
                                     </div>
                                 </div>
                             ))}
@@ -220,7 +241,7 @@ function AllPost() {
                                     return
                                 }
                                 else {
-                                    CreateCommentApi(localStorage.getItem("userId")+"",postIdcomment+"",commentMessage)
+                                    CreateCommentApi(localStorage.getItem("userId") + "", postIdcomment + "", commentMessage)
                                 }
                             }}></img>
                         </div>
@@ -272,7 +293,6 @@ function AllPost() {
                         <h1 className="modal-title fs-5" id="exampleCommentModalLabel">EditComment</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={
                             function (e: React.MouseEvent<HTMLButtonElement>) {
-
                             }}></button>
                     </div>
                     <div className="modal-body">
