@@ -5,6 +5,7 @@ import HeadComp from "../components/headNav"
 import PostComp from "../components/postComp"
 import getAllPostApi from "../../api/getAllpost"
 import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
 import deletePostfunc from "../../api/deletePostapi"
 import { Toast } from "bootstrap"
 import EditPostApi from "../../api/editPostapi"
@@ -14,6 +15,7 @@ import DeleteCommentApi from "../../api/deleteCommentApi"
 import Modal from "bootstrap"
 import EditCommentApi from "../../api/editCommentApi"
 import ChangeLikeApi from "../../api/changeLikeApi"
+import getUserPostApi from "../../api/getPostUserApi"
 
 function likeactive(likepost: string,postId:string,userId:string) {
     if (likepost == "True") {
@@ -51,6 +53,8 @@ function AllPost() {
 
 
     var [commentEdit, setCommentEdit] = useState("")
+
+    const location = useLocation();
     
 
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -169,12 +173,29 @@ function AllPost() {
     var userId = localStorage.getItem("userId")
     useEffect(() => {
         if (userId) {
-            getAllPostApi(userId, setAllPost);
+            console.log("get all post")
+            if (location.pathname === "/userpost") {
+                getUserPostApi(userId, setAllPost)
+            }
+            else if(location.pathname === "/allpost"){
+                getAllPostApi(userId, setAllPost);
+            }
         }
         else {
             window.location.href = ".."
         }
     }, [userId]);
+
+    useEffect(() => {
+        console.log("Route changed to:", location.pathname);
+
+        if (location.pathname === "/userpost") {
+            getUserPostApi(userId+"", setAllPost)
+        }
+        else if (location.pathname === "/allpost") {
+            getAllPostApi(userId+"", setAllPost);
+        }
+    }, [location]);
 
     return <div className="allPageCont">
         {/* header component */}
