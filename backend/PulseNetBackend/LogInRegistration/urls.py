@@ -18,5 +18,6 @@ urlpatterns = [
     path('api/editPost/',views.editPost,name = "editPost"),
     path('api/getComments/',views.getComments,name="getComments"),
     path('api/createComment/',views.createComment,name="createComment"),
-    path('api/deleteComment/',views.deleteComment,name="deleteComment")
+    path('api/deleteComment/',views.deleteComment,name="deleteComment"),
+    path('api/editComment/',views.editComment,name="editComment"),
 ]
