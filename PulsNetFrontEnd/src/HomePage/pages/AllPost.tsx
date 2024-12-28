@@ -12,6 +12,7 @@ import GetCommentsApi from "../../api/getCommentsapi"
 import CreateCommentApi from "../../api/createCommentapi"
 import DeleteCommentApi from "../../api/deleteCommentApi"
 import Modal from "bootstrap"
+import EditCommentApi from "../../api/editCommentApi"
 
 function likeactive(likepost: string) {
     if (likepost == "True") {
@@ -142,7 +143,13 @@ function AllPost() {
                         }}></textarea></li>
                         <li>
                             <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "end", "alignItems": "center" }}>
-                                <img src="images/sendPost.png" className="sendPost" style={{"height":"15px","width":"15px"}} onClick={function (e) {
+                                <img src="images/sendPost.png" className="sendPost" style={{ "height": "15px", "width": "15px" }} onClick={function (e) {
+                                    if (commentEdit.trim() == "") {
+                                        alert("not good")
+                                    }
+                                    else {
+                                        EditCommentApi(commentId,commentEdit)
+                                    }
                                 }}></img>
                             </div>
                         </li>
