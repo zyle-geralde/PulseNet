@@ -460,6 +460,47 @@ def getUserLogged(request):
     return JsonResponse({"message":"Invalid request"})
 
 
+def changeProfileImage(request):
+    if request.method == "POST":
+       
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+
+        imageUrl = request.FILES.get("imageUrl")
+        userId = request.POST.get("userId")
+
+
+        if imageUrl:
+            frontend_images_path = os.path.abspath(os.path.join(settings.BASE_DIR,'..','..','PulsNetFrontEnd', 'public', 'images'))
+            print(frontend_images_path)
+
+
+            file_extension = os.path.splitext(imageUrl.name)[1]
+            unique_name = f"{uuid.uuid4().hex}{file_extension}"
+
+            file_path = os.path.join(frontend_images_path,unique_name)
+            print(unique_name)
+            print(file_extension)    
+
+            with open(file_path, 'wb+') as destination:
+                for chunk in imageUrl.chunks():
+                    destination.write(chunk)
+
+            findeUser = CustomerUser.objects.get(id = int(userId))
+            findeUser.imageurl = f'images/{unique_name}'
+
+            print("user changed profile")
+        
+        return JsonResponse({"message":"Successful"})
+
+    return JsonResponse({"message":"Invalid request"})
+       
+
+
 
 
         
