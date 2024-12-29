@@ -64,7 +64,8 @@ function ProfileComp() {
         <div style={{"marginBottom":"10px"}}>
                 <strong>Address: </strong><span>{profileInfo.address}</span>
         </div>
-    </div>
+        </div>
+        <div className="AddPhotoEdit" style={{"width":"50px"}}>Edit</div>
 </div>
 }
 

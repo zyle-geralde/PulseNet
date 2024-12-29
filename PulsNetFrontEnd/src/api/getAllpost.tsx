@@ -51,6 +51,8 @@ async function getAllPostApi(id: String, setAllPost: Dispatch<SetStateAction<Pos
 
     console.log(response.data.jsondata)
     setAllPost(response.data.jsondata)
+    if (response.data.message == "Successful") {
+    }
     if (response.data.message == "Expired access token") {
         console.log("expired")
         NewAccessToken()
