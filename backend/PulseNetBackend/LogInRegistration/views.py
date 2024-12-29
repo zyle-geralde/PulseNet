@@ -432,6 +432,36 @@ def changeLike(request):
     return JsonResponse({"message":"Invalid request"})
 
 
+def getUserLogged(request):
+    if request.method == "POST":
+
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+
+        data = json.loads(request.body)
+        userId = data.get("userId")
+        loggedUser = CustomerUser.objects.get(id = int(userId))
+
+        retUser = {
+            "firstname":loggedUser.firstname,
+            "lastname":loggedUser.lastname,
+            "age":loggedUser.age,
+            "gender":loggedUser.gender,
+            "address":loggedUser.address,
+            "imageurl":loggedUser.imageurl,
+        }
+
+        return JsonResponse({"message":"Successful","jsondata":retUser})
+    
+    return JsonResponse({"message":"Invalid request"})
+
+
+
+
         
 
 

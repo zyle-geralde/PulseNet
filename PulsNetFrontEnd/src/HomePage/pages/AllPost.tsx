@@ -16,6 +16,7 @@ import Modal from "bootstrap"
 import EditCommentApi from "../../api/editCommentApi"
 import ChangeLikeApi from "../../api/changeLikeApi"
 import getUserPostApi from "../../api/getPostUserApi"
+import ProfileComp from "../components/profileComp"
 
 function likeactive(likepost: string, postId: string, userId: string) {
     if (likepost == "True") {
@@ -169,6 +170,17 @@ function AllPost() {
         return null
     }
 
+    function showProfile() {
+        if (location.pathname == "/userpost") {
+            return <ProfileComp/>
+        }
+        else if(location.pathname === "/allpost") {
+            return <div style={{"marginTop":"80px"}}>
+                
+            </div>
+        }
+    }
+
 
     var userId = localStorage.getItem("userId")
     useEffect(() => {
@@ -200,31 +212,7 @@ function AllPost() {
     return <div className="allPageCont">
         {/* header component */}
         <HeadComp />
-        <div className="conatinProfileView">
-            <div style={{"display":"flex","flexDirection":"row","justifyContent":"center"}}>
-                <div className="profilePicChanges">
-                    <img src={'images/userhold.png'} className="holdepProfileView"></img>
-                    <img src={'images/ediIcon.png'} className="holdEditprofileView"></img>
-                </div>
-            </div>
-            <div style={{"display":"flex","flexDirection":"column","wordBreak":"break-word","marginTop":"20px","fontSize":"15px"}}>
-                <div style={{"marginBottom":"10px"}}>
-                    <strong>First Name: </strong><span>Zyle Geralde</span>
-                </div>
-                <div style={{"marginBottom":"10px"}}>
-                    <strong>Last Name: </strong><span>dela pena</span>
-                </div>
-                <div style={{"marginBottom":"10px"}}>
-                    <strong>Age: </strong><span> 21</span>
-                </div>
-                <div style={{"marginBottom":"10px"}}>
-                    <strong>Gender: </strong><span>Male</span>
-                </div>
-                <div style={{"marginBottom":"10px"}}>
-                    <strong>Address: </strong><span>Ticad Bantayan Cebu</span>
-                </div>
-            </div>
-        </div>
+        {showProfile()}
         <PostComp />
 
         {allPost.map((post, index) => (
