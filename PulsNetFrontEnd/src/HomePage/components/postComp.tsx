@@ -1,6 +1,8 @@
 import { useState,useRef } from "react"
 import { Toast } from 'bootstrap';
 import UserPost from "../../api/userPost";
+import { useEffect } from "react";
+import GetLoggedUser from "../../api/getUserLogged";
 
 const showToast = (message: string) => {
     const toastElement = document.getElementById('liveToast') as HTMLElement;
@@ -17,6 +19,19 @@ function PostComp() {
     var [postcaption, setPostCaption] = useState("")
     var [postImage, setPostImage] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    var [profileInfo, setprofileInfo] = useState({"firstname":"",
+        "lastname":"",
+        "age":"",
+        "gender":"",
+        "address":"",
+        "imageurl": "",
+    })
+    
+    useEffect(() => {
+        GetLoggedUser(setprofileInfo)
+        console.log("Profile Info",profileInfo)
+    }, []);
     
 
     function clickSend() {
@@ -79,7 +94,7 @@ function PostComp() {
     return <>
         <div className="postCont">
             <div className="topCont">
-                <img className="userProf" src="images/userhold.png"></img>
+                <img className="userProf" src={profileInfo.imageurl}></img>
                 <input type="text" placeholder="post here ..." className="postInp" onChange={function (e: React.ChangeEvent<HTMLInputElement>) {
                     setPostCaption(e.target.value)
                 }}></input>
