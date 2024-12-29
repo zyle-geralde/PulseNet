@@ -473,6 +473,8 @@ def changeProfileImage(request):
         imageUrl = request.FILES.get("imageUrl")
         userId = request.POST.get("userId")
 
+        print("\n\nshow image")
+        print(imageUrl)
 
         if imageUrl:
             frontend_images_path = os.path.abspath(os.path.join(settings.BASE_DIR,'..','..','PulsNetFrontEnd', 'public', 'images'))
@@ -492,8 +494,7 @@ def changeProfileImage(request):
 
             findeUser = CustomerUser.objects.get(id = int(userId))
             findeUser.imageurl = f'images/{unique_name}'
-
-            print("user changed profile")
+            findeUser.save()
         
         return JsonResponse({"message":"Successful"})
 
