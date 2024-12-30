@@ -1,7 +1,10 @@
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 function HeadComp() {
     const navigate = useNavigate()
+
+    var [classChange,setClassChange] = useState("dropSearchClickHide")
 
     return <>
         <div className="headNav">
@@ -19,7 +22,49 @@ function HeadComp() {
             </div>
             <div className="searchPeople">
                 <input type="text" placeholder="search" className="searchInp"></input>
-                <img src="/images/searchlogo.png" className="searchImg"></img>
+                <img src="/images/searchlogo.png" className="searchImg" style={{ "cursor": "pointer" }} onClick={function (e) {
+                    if (classChange == "dropSearchClickHide") {
+                        setClassChange("dropSearchClick")
+                    }
+                    else {
+                        setClassChange("dropSearchClickHide")
+                    }
+                    
+                }}></img>
+            </div>
+            <div className={classChange}>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
+                <div>Hellow</div>
             </div>
         </div>
     </>

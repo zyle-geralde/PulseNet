@@ -342,7 +342,37 @@
     width: 20px;
     cursor: pointer;
 }
+.dropSearchClick{
+    height: 300px;
+    width: 240px;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    transition-duration: 0.2s;
+    overflow: auto;
+    padding: 5px;
+}
 
+.dropSearchClickHide{
+    padding: 0px;
+    height: 0px;
+    width: 240px;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    transition-duration: 0.2s;
+    overflow: hidden;
+}
+
+@media(max-height:400px){
+    .dropSearchClick{
+        height: 250px;
+    }
+}
 @media (max-width:630px){
     .postCont{
         width: 90%;
