@@ -530,6 +530,37 @@ def editUserProfile(request):
         return JsonResponse({"message":"Successful"})
 
     return JsonResponse({"message":"Invalid request"})
+
+
+def getAllUsers(request):
+    if request.method == "POST":
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+
+        data = json.loads(request.body)
+        word = data.get("word")
+
+        allUsers = CustomerUser.objects.all()
+
+        alluserHold = []
+
+        for hold in allUsers:
+            UserFullName = hold.firstname+" "+hold.lastname
+            
+            if word in UserFullName:
+
+                holdVar = {"fullname":hold.firstname+" "+hold.lastname,
+                       "userId":hold.id
+                       }
+                alluserHold.append(holdVar)
+
+        return JsonResponse({"message":"Successful","jsondata":alluserHold})
+    return JsonResponse({"message":"Invalid request"})
+
        
 
 

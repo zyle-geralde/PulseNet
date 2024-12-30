@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/changeLike/',views.changeLike,name="changeLike"),
     path('api/getLoggedUser/',views.getUserLogged,name = "getUserLogged"),
     path('api/changeProfileImage/',views.changeProfileImage,name = "changeProfileImage"),
-    path('api/editProfileInfo/',views.editUserProfile,name = "editUserProfile")
+    path('api/editProfileInfo/',views.editUserProfile,name = "editUserProfile"),
+    path('api/getAllUsers/',views.getAllUsers,name = "getAllUsers")
 ]
