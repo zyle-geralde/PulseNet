@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import GetLoggedUser from "../../api/getUserLogged";
 import { useEffect } from "react";
 import ChangeProfileImage from "../../api/changeProfileImage";
+import EditUserProfileApi from "../../api/editUserProfileApi";
 
 
 function ProfileComp() {
@@ -120,10 +121,10 @@ function ProfileComp() {
                             <img src="images/sendPost.png" className="sendPost" onClick={function (e) {
                                 if (forfirstname.trim() == "" || forlastname.trim() == "" || forage.trim() == "" || forgender.trim() == "" ||
                                     foraddress.trim() == "") {
-                                    alert("bad")
+                                    alert("Invalid Credentails")
                                 }
                                 else {
-                                    alert("good")
+                                    EditUserProfileApi(forfirstname,forlastname,forage,forgender,foraddress)
                                 }
                             }}></img>
                         </div>

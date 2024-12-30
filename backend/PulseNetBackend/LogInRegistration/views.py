@@ -499,6 +499,36 @@ def changeProfileImage(request):
         return JsonResponse({"message":"Successful"})
 
     return JsonResponse({"message":"Invalid request"})
+
+
+def editUserProfile(request):
+    if request.method == "POST":
+        token_check = validate_access_token(request)
+        print(token_check)
+
+        if not token_check["status"]:
+            return JsonResponse({"message": token_check["message"]})
+        
+        data = json.loads(request.body)
+        firstname = data.get("firstname")
+        lastname = data.get("lastname")
+        gender = data.get("gender")
+        age = data.get("age")
+        address = data.get("address")
+        userId = data.get("userId")
+
+        userHold = CustomerUser.objects.get(id = int(userId))
+        
+        userHold.firstname = firstname
+        userHold.lastname = lastname
+        userHold.age = age
+        userHold.address = address
+        userHold.gender = gender
+
+        userHold.save()
+        return JsonResponse({"message":"Successful"})
+
+    return JsonResponse({"message":"Invalid request"})
        
 
 
