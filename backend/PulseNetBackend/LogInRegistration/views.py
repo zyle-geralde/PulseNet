@@ -313,6 +313,7 @@ def getComments(request):
                     'message':nn.comment,
                     'userId':str(nn.userId.id),
                     'postId':str(nn.postId.id),
+                    'userImage':nn.userId.imageurl
                 }
 
                 comment_list.append(holdlist)

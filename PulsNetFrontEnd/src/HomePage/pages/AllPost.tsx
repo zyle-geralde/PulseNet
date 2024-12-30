@@ -260,7 +260,7 @@ function AllPost() {
                         <div className="commentsContain">
                             {allComments.map((comment, index) => (
                                 <div className="IndivComment">
-                                    <img src="images/userhold.png" className="commentUserimg"></img>
+                                    <img src={comment["userImage"]} className="commentUserimg"></img>
                                     <div className="usercommentTextCont">
                                         <div className="uppercomment">
                                             <div className="userCommentName">
