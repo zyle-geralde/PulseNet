@@ -109,6 +109,10 @@ function HeadComp() {
                     }
                     
                 }}></img>
+                <img src={"/images/logout.png"} className="friendImg" style={{ "cursor": "pointer","marginLeft":"-7px"}} onClick={function (e) {
+                    window.location.href = "/"
+                    localStorage.clear()
+                }}></img>
             </div>
             <div className={classChange}>
                 {allsearched.map((names,index) => (
