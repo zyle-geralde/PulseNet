@@ -22,7 +22,8 @@ function App() {
           <Route path='/signUp' element={<SignUpPage />} />
           <Route path='/sample' element={<Samplepage />} />
           <Route path='/allpost' element={<AllPostpage />} />
-          <Route path= '/userpost' element={<AllPostpage />} />
+          <Route path='/userpost' element={<AllPostpage />} />
+          <Route path='/otheruser' element={<AllPostpage />} />
         </Routes>
       </Suspense>
     </>

@@ -73,13 +73,13 @@ function ProfileComp() {
                 <strong>Address: </strong><span>{profileInfo.address}</span>
         </div>
         </div>
-        <div className="AddPhotoEdit" style={{ "width": "50px" }} data-bs-toggle="modal" data-bs-target="#editProfileModal" onClick={function (e) {
+        {<div className="AddPhotoEdit" style={{ "width": "50px" }} data-bs-toggle="modal" data-bs-target="#editProfileModal" onClick={function (e) {
             setforfirstname(profileInfo.firstname)
             setforlastname(profileInfo.lastname)
             setforage(profileInfo.age)
             setforgender(profileInfo.gender)
             setforaddress(profileInfo.address)
-        }}>Edit</div>
+        }}>Edit</div>}
         
 
         <div className="modal fade" id="editProfileModal" aria-labelledby="exampleCommentModalLabel" aria-hidden="true">

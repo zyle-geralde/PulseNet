@@ -17,6 +17,7 @@ import EditCommentApi from "../../api/editCommentApi"
 import ChangeLikeApi from "../../api/changeLikeApi"
 import getUserPostApi from "../../api/getPostUserApi"
 import ProfileComp from "../components/profileComp"
+import OtherProfileComp from "../components/otherProfileComp"
 
 function likeactive(likepost: string, postId: string, userId: string) {
     if (likepost == "True") {
@@ -36,6 +37,8 @@ function likeactive(likepost: string, postId: string, userId: string) {
 }
 
 function AllPost() {
+    var [otherUserId, setotherUserId] = useState("")
+    
     var [allPost, setAllPost] = useState([{
         'fullname': 'default', 'dateCreated': 'default', 'caption': 'default',
         'imageurl': 'images/userhold.png', 'liked': 'False', 'countLike': "0", 'userPosted': '0',
@@ -174,6 +177,9 @@ function AllPost() {
         if (location.pathname == "/userpost") {
             return <ProfileComp/>
         }
+        else if (location.pathname == "/otheruser") {
+            return <OtherProfileComp userId={localStorage.getItem("othersId")+""} />
+        }
         else if(location.pathname === "/allpost") {
             return <div style={{"marginTop":"80px"}}>
                 
@@ -187,9 +193,19 @@ function AllPost() {
         if (userId) {
             console.log("get all post")
             if (location.pathname === "/userpost") {
+                localStorage.setItem("othersId", "")
                 getUserPostApi(userId, setAllPost)
             }
+            else if (location.pathname === "/otheruser") {
+                if (localStorage.getItem("othersId") == "") {
+                    window.location.href = "/allpost"
+                }
+                else {
+                    getUserPostApi(localStorage.getItem("othersId")+"", setAllPost)
+                }
+            }
             else if (location.pathname === "/allpost") {
+                localStorage.setItem("othersId", "")
                 getAllPostApi(userId, setAllPost);
             }
         }
@@ -202,9 +218,19 @@ function AllPost() {
         console.log("Route changed to:", location.pathname);
 
         if (location.pathname === "/userpost") {
+            localStorage.setItem("othersId", "")
             getUserPostApi(userId + "", setAllPost)
         }
+        else if (location.pathname === "/otheruser") {
+            if (localStorage.getItem("othersId") == "") {
+                window.location.href = "/allpost"
+            }
+            else {
+                getUserPostApi(localStorage.getItem("othersId")+"", setAllPost)
+            }
+        }
         else if (location.pathname === "/allpost") {
+            localStorage.setItem("othersId", "")
             getAllPostApi(userId + "", setAllPost);
         }
     }, [location]);
@@ -219,7 +245,16 @@ function AllPost() {
             <div className="allPostCont">
                 <div className="allProfCont">
                     <img src={post.profimage} className="userProfhold"></img>
-                    <div className="namePost">
+                    <div className="namePost" style={{"cursor":"pointer"}} onClick={async function (e) {
+                        localStorage.setItem("othersId", post.userPosted+"")
+                        if (localStorage.getItem("othersId") === localStorage.getItem("userId")) {
+                            window.location.href = "/userpost"
+                        }
+                        else {
+                            window.location.href = "/otheruser"
+                        }
+                        console.log(otherUserId)
+                    }}>
                         <div className="username">
                             {post.fullname}
                         </div>
